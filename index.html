@@ -1,0 +1,1683 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf7">
+<title>새벽시장 | 동대문 직송 특가몰 · 테스트 프로토타입</title>
+<meta name="description" content="동대문 도매 신상을 특가로 만나는 테스트용 쇼핑몰 프로토타입입니다.">
+<style>
+  :root{
+    --ink:#131312;
+    --ink-soft:#3b3a37;
+    --muted:#8b877f;
+    --line:#e6e2da;
+    --paper:#fbfaf7;
+    --white:#ffffff;
+    --accent:#ff3b30;
+    --accent-soft:#fff2ef;
+    --radius:16px;
+    --header-h:66px;
+    --maxw:1240px;
+    --shadow:0 24px 60px -40px rgba(17,16,14,.55);
+    --font:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","맑은 고딕","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--font);font-size:15px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  }
+  body.locked{overflow:hidden}
+  button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+  input,select{font:inherit;color:inherit}
+  a{color:inherit;text-decoration:none}
+  svg{display:block}
+  h1,h2,h3,h4,p,ul,li,figure{margin:0;padding:0}
+  ul,ol{list-style:none}
+  .wrap{width:min(var(--maxw),100% - 48px);margin:0 auto}
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+  /* ---------- promo bar ---------- */
+  .promo{background:#121211;color:#f4f1ec;font-size:12.5px}
+  .promo .wrap{height:38px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .promo-left{display:flex;align-items:center;gap:10px;min-width:0}
+  .live-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;box-shadow:0 0 0 0 rgba(255,59,48,.6);animation:pulse 2s infinite}
+  .promo-left b{font-weight:700;color:#fff}
+  .promo-left .sep{opacity:.35;margin:0 2px}
+  .promo-right{display:flex;align-items:center;gap:8px;flex:none}
+  .proto-chip{font-size:10.5px;letter-spacing:.08em;font-weight:700;padding:3px 8px;border:1px solid rgba(255,255,255,.28);border-radius:999px;color:#d9d5cd}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,59,48,.55)}
+    70%{box-shadow:0 0 0 8px rgba(255,59,48,0)}
+    100%{box-shadow:0 0 0 0 rgba(255,59,48,0)}
+  }
+
+  /* ---------- header ---------- */
+  .hdr{position:sticky;top:0;z-index:60;background:rgba(251,250,247,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  .hdr .wrap{height:var(--header-h);display:flex;align-items:center;gap:26px}
+  .logo{display:flex;flex-direction:column;line-height:1;flex:none}
+  .logo b{font-size:20px;font-weight:800;letter-spacing:-.03em}
+  .logo span{font-size:8px;letter-spacing:.24em;color:var(--muted);margin-top:6px;font-weight:600}
+  .nav{display:flex;align-items:center;gap:2px;margin-left:6px}
+  .nav button{padding:8px 12px;font-size:13.5px;color:#4a4842;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+  .nav button:hover{background:#f0ede6;color:#111}
+  .hdr-actions{margin-left:auto;display:flex;align-items:center;gap:2px}
+  .icon-btn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;position:relative;color:#26251f;transition:background .2s}
+  .icon-btn:hover{background:#f0ede6}
+  .count-badge{position:absolute;top:3px;right:1px;min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:var(--accent);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center;line-height:1;border:2px solid var(--paper)}
+  .count-badge[hidden]{display:none}
+  .count-badge.bump{animation:bump .35s ease}
+  @keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:52px 0 44px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;left:-10%;top:-30%;width:60%;height:120%;background:radial-gradient(closest-side,rgba(203,183,148,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{position:relative;display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.18em;font-weight:700;color:#6f6a60;text-transform:uppercase}
+  .eyebrow::before{content:"";width:24px;height:1px;background:#a29b8d}
+  .hero h1{font-size:clamp(34px,4.5vw,58px);line-height:1.06;letter-spacing:-.05em;font-weight:800;margin:18px 0 18px}
+  .hero h1 .hl{position:relative;white-space:nowrap}
+  .hero h1 .hl::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.34em;background:rgba(255,59,48,.15);z-index:-1;border-radius:2px}
+  .hero p{font-size:15.5px;line-height:1.72;color:#5d5a53;max-width:430px;margin:0 0 26px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-weight:700;font-size:14.5px;padding:14px 26px;transition:transform .18s,box-shadow .18s,background .18s,border-color .18s}
+  .btn:active{transform:translateY(1px)}
+  .btn-dark{background:#121211;color:#fff;box-shadow:0 16px 30px -22px rgba(0,0,0,.9)}
+  .btn-dark:hover{background:#000;box-shadow:0 20px 36px -20px rgba(0,0,0,.75)}
+  .btn-line{background:#fff;border:1px solid #d9d4ca;color:#26251f}
+  .btn-line:hover{border-color:#b8b3a7;background:#fdfcfa}
+  .timer-card{margin-top:34px;display:inline-flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 18px;box-shadow:var(--shadow)}
+  .timer-card .t-label{font-size:11px;letter-spacing:.02em;color:var(--muted);line-height:1.5}
+  .timer-card .t-label b{display:block;font-size:12px;color:#2c2b26;letter-spacing:-.01em;margin-top:2px}
+  .timer{display:flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums;font-weight:800;font-size:23px;letter-spacing:-.02em}
+  .timer span{min-width:38px;text-align:center;background:#f6f3ee;border-radius:9px;padding:4px 6px}
+  .timer i{font-style:normal;color:#bcb6aa;font-size:19px}
+  .timer em{font-style:normal;font-size:11px;font-weight:700;color:var(--muted);align-self:flex-end;margin:0 0 6px 2px;letter-spacing:0}
+
+  .hero-visual{position:relative;border-radius:24px;overflow:hidden;background:#141413;box-shadow:0 50px 90px -55px rgba(0,0,0,.85)}
+  .hero-visual > svg{width:100%;height:auto;aspect-ratio:520/640}
+  .float{position:absolute;background:#fff;color:#171614;border-radius:13px;padding:9px 13px;box-shadow:0 20px 40px -22px rgba(0,0,0,.7);font-size:12px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:7px}
+  .float small{display:block;font-size:9.5px;font-weight:600;color:#8b877f;letter-spacing:.04em;margin-top:2px}
+  .f-off{right:16px;top:20px;background:var(--accent);color:#fff;border-radius:50%;width:74px;height:74px;flex-direction:column;justify-content:center;gap:0;padding:0;font-size:14px;text-align:center;transform:rotate(6deg)}
+  .f-off b{font-size:22px;line-height:1;letter-spacing:-.04em}
+  .f-off small{color:rgba(255,255,255,.85);font-size:9px;letter-spacing:.1em;margin-top:3px}
+  .f-ship{left:16px;bottom:16px;padding:10px 14px}
+  .f-ship svg{color:#2b2a25}
+  .f-close{right:16px;bottom:16px;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);padding:9px 13px;font-weight:700;font-size:11.5px}
+  .f-close .dot-red{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+  /* ---------- perks ---------- */
+  .perks{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .perks .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+  .perk{padding:22px 24px;border-left:1px solid var(--line);display:flex;gap:12px;align-items:flex-start}
+  .perk:first-child{border-left:0;padding-left:0}
+  .perk:last-child{padding-right:0}
+  .perk svg{flex:none;margin-top:1px;color:#26251f}
+  .perk b{display:block;font-size:13px;letter-spacing:-.02em}
+  .perk span{display:block;font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+
+  /* ---------- catalog ---------- */
+  .catalog{padding:56px 0 72px}
+  .cat-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:22px}
+  .cat-head h2{font-size:clamp(25px,2.7vw,33px);letter-spacing:-.045em;font-weight:800;display:flex;align-items:center;gap:10px}
+  .cat-head h2 .live{font-size:10px;letter-spacing:.14em;font-weight:800;color:var(--accent);border:1px solid rgba(255,59,48,.4);border-radius:999px;padding:3px 8px;transform:translateY(-2px)}
+  .cat-head p{font-size:13px;color:var(--muted);margin-top:7px}
+  .result-count{font-size:12.5px;color:var(--muted);flex:none;padding-bottom:4px}
+  .result-count b{color:#191814}
+
+  .toolbar{position:sticky;top:var(--header-h);z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 0;margin:0 0 24px;background:linear-gradient(var(--paper) 72%,rgba(251,250,247,.86));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding:2px 0}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{white-space:nowrap;padding:9px 16px;border-radius:999px;font-size:13.5px;color:#5a574f;border:1px solid transparent;transition:.18s}
+  .tabs button:hover{background:#f0ede6}
+  .tabs button[aria-selected="true"]{background:#121211;color:#fff;font-weight:700;border-color:#121211}
+  .tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .search{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;background:#fff;border:1px solid var(--line);border-radius:999px;transition:border-color .18s,box-shadow .18s}
+  .search:focus-within{border-color:#b6b0a4;box-shadow:0 0 0 4px rgba(24,23,20,.04)}
+  .search svg{color:#8b877f;flex:none}
+  .search input{border:0;outline:0;background:none;width:150px;font-size:13.5px;letter-spacing:-.01em}
+  .search input::placeholder{color:#a9a49a}
+  .search .clear{display:none;color:#a9a49a;width:18px;height:18px;place-items:center}
+  .search.has-value .clear{display:grid}
+  .sort{height:40px;padding:0 34px 0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:13px;color:#3b3a34;appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b877f' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+
+  .grid[hidden]{display:none}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(244px,1fr));gap:30px 20px}
+  .card{position:relative;text-align:left;outline:0}
+  .card:focus-visible .card-media{box-shadow:0 0 0 3px rgba(18,18,17,.35)}
+  .card-media{position:relative;aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;background:#efece6;cursor:pointer}
+  .card-media svg{width:100%;height:100%;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+  .card:hover .card-media svg{transform:scale(1.045)}
+  .disc{position:absolute;left:10px;top:10px;background:#121211;color:#fff;font-size:11.5px;font-weight:800;letter-spacing:-.01em;padding:5px 8px;border-radius:7px}
+  .disc.hot{background:var(--accent)}
+  .wish{position:absolute;right:9px;top:9px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.86);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;color:#3b3a34;transition:transform .18s,color .18s}
+  .wish:hover{transform:scale(1.08)}
+  .wish.on{color:var(--accent)}
+  .chips{position:absolute;left:10px;bottom:10px;display:flex;gap:4px;flex-wrap:wrap}
+  .chip{font-size:10.5px;font-weight:700;letter-spacing:-.01em;padding:4px 7px;border-radius:6px;background:rgba(255,255,255,.9);color:#2b2a25;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .chip.line{background:rgba(18,18,17,.72);color:#fff}
+  .card-body{padding:13px 2px 0}
+  .p-brand{font-size:10.5px;letter-spacing:.11em;color:#9d978c;font-weight:700;text-transform:uppercase}
+  .p-name{font-size:14.5px;font-weight:600;letter-spacing:-.025em;line-height:1.42;margin:6px 0 9px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.84em}
+  .price-row{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+  .pct{color:var(--accent);font-weight:800;font-size:15px;letter-spacing:-.02em}
+  .price{font-weight:800;font-size:16.5px;letter-spacing:-.03em}
+  .list{font-size:12px;color:#aba69c;text-decoration:line-through}
+  .p-meta{display:flex;align-items:center;gap:5px;font-size:11.5px;color:#8b877f;margin-top:7px}
+  .p-meta .star{color:#c9a227;font-size:11px}
+  .p-meta .sep{opacity:.5}
+  .p-meta .fire{color:var(--accent);font-weight:700}
+
+  .empty{padding:70px 20px;text-align:center;border:1px dashed #ddd8cd;border-radius:var(--radius);background:#fff}
+  .empty b{display:block;font-size:15px;margin-bottom:6px}
+  .empty span{display:block;font-size:13px;color:var(--muted);margin-bottom:18px}
+
+  /* ---------- editorial band ---------- */
+  .band{background:#141413;color:#f2efe9;padding:56px 0;position:relative;overflow:hidden}
+  .band::after{content:"";position:absolute;right:-12%;top:-40%;width:55%;height:180%;background:radial-gradient(closest-side,rgba(203,183,148,.16),transparent 70%)}
+  .band .wrap{position:relative;display:grid;grid-template-columns:1.3fr .7fr;gap:44px;align-items:end}
+  .band .eyebrow{color:#a8a294}
+  .band .eyebrow::before{background:#5c5950}
+  .band h2{font-size:clamp(23px,2.6vw,31px);letter-spacing:-.04em;line-height:1.35;margin:16px 0 12px;font-weight:800}
+  .band p{font-size:14px;color:#a9a49a;line-height:1.75;max-width:520px}
+  .band-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;border-top:1px solid rgba(255,255,255,.12);padding-top:18px}
+  .band-stats div b{display:block;font-size:20px;letter-spacing:-.03em}
+  .band-stats div span{display:block;font-size:11px;color:#96918a;margin-top:4px;line-height:1.4}
+
+  /* ---------- footer ---------- */
+  footer{padding:44px 0 40px;background:var(--paper)}
+  .foot-top{display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap;padding-bottom:28px;border-bottom:1px solid var(--line)}
+  .foot-brand{max-width:320px}
+  .foot-brand p{font-size:12px;color:var(--muted);line-height:1.7;margin-top:12px}
+  .foot-cols{display:flex;gap:48px;flex-wrap:wrap}
+  .foot-col b{display:block;font-size:11px;letter-spacing:.12em;color:#9d978c;text-transform:uppercase;margin-bottom:12px}
+  .foot-col button,.foot-col a{display:block;font-size:12.5px;color:#4a4842;margin-bottom:9px;text-align:left}
+  .foot-col button:hover{color:#111;text-decoration:underline}
+  .foot-bottom{padding-top:22px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11.5px;color:#9d978c;line-height:1.8}
+  .foot-bottom .fine{max-width:640px}
+
+  /* ---------- generic overlay / drawer ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(20,19,16,.46);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:70}
+  .scrim.on{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(430px,100%);background:#fff;z-index:90;display:flex;flex-direction:column;transform:translateX(102%);transition:transform .4s cubic-bezier(.3,.85,.2,1);box-shadow:-40px 0 70px -50px rgba(0,0,0,.6)}
+  .drawer.open{transform:none}
+  .drawer-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 20px 16px;border-bottom:1px solid var(--line)}
+  .drawer-hd h3{font-size:16.5px;letter-spacing:-.03em;font-weight:800;display:flex;align-items:center;gap:7px}
+  .drawer-hd h3 span{font-size:12px;color:var(--accent);font-weight:800}
+  .x-btn{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#4a4842;transition:background .2s}
+  .x-btn:hover{background:#f2efe9}
+  .drawer-body{flex:1;overflow-y:auto;padding:16px 20px}
+  .drawer-foot{border-top:1px solid var(--line);padding:16px 20px 20px;background:#fff}
+
+  /* cart items */
+  .cart-empty{height:100%;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;color:var(--muted);padding:30px 10px}
+  .cart-empty .ic{width:54px;height:54px;border-radius:50%;background:#f5f2ec;display:grid;place-items:center;margin-bottom:10px;color:#a8a294}
+  .cart-empty b{font-size:14px;color:#2b2a25}
+  .cart-empty span{font-size:12.5px;line-height:1.6;max-width:230px}
+  .cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #f1eee8}
+  .cart-thumb{width:76px;height:95px;border-radius:10px;overflow:hidden;background:#efece6;flex:none}
+  .cart-thumb svg{width:100%;height:100%}
+  .cart-info{flex:1;min-width:0}
+  .ci-brand{font-size:10px;letter-spacing:.1em;color:#9d978c;font-weight:700}
+  .ci-name{font-size:13px;font-weight:600;letter-spacing:-.02em;line-height:1.4;margin:3px 0 5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .ci-opt{font-size:11.5px;color:#8b877f;display:flex;align-items:center;gap:6px}
+  .ci-opt .dotc{width:9px;height:9px;border-radius:50%;border:1px solid rgba(0,0,0,.12);display:inline-block}
+  .ci-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px}
+  .ci-price{font-size:13.5px;font-weight:800;letter-spacing:-.02em}
+  .stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;overflow:hidden;height:28px}
+  .stepper button{width:26px;height:28px;display:grid;place-items:center;color:#4a4842}
+  .stepper button:hover{background:#f6f3ee}
+  .stepper button:disabled{color:#cdc8bd;cursor:not-allowed}
+  .stepper span{min-width:22px;text-align:center;font-size:12.5px;font-variant-numeric:tabular-nums;font-weight:700}
+  .ci-del{width:26px;height:26px;border-radius:6px;display:grid;place-items:center;color:#b3ada2}
+  .ci-del:hover{background:#f6f3ee;color:#8b877f}
+
+  .sum{display:grid;gap:8px;margin-bottom:12px}
+  .sum-row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:#5d5a53}
+  .sum-row b{font-size:13.5px;color:#191814;font-weight:700;letter-spacing:-.01em}
+  .sum-row .minus{color:var(--accent)}
+  .sum-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:12px;border-top:1px solid var(--line);margin:2px 0 14px}
+  .sum-total span{font-size:13.5px;font-weight:700}
+  .sum-total b{font-size:21px;letter-spacing:-.04em;font-weight:800}
+  .ship-hint{font-size:11.5px;color:var(--muted);margin:-4px 0 12px;display:flex;align-items:center;gap:5px}
+  .ship-hint .bar{flex:1;height:4px;border-radius:2px;background:#efece6;overflow:hidden}
+  .ship-hint .bar i{display:block;height:100%;background:#2b2a25;border-radius:2px;transition:width .3s}
+  .btn-block{width:100%;padding:15px;border-radius:12px;font-size:14.5px;font-weight:800;background:#121211;color:#fff;letter-spacing:-.01em;transition:background .18s,transform .18s}
+  .btn-block:hover{background:#000}
+  .btn-block:disabled{background:#e9e5dd;color:#b0aa9e;cursor:not-allowed}
+  .fine-print{font-size:10.5px;color:#a9a49a;text-align:center;margin-top:10px;line-height:1.5}
+
+  /* ---------- modals ---------- */
+  .modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:24px}
+  .modal.open{display:flex}
+  .modal-scrim{position:absolute;inset:0;background:rgba(20,19,16,.5);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fadeIn .25s ease}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes rise{from{opacity:0;transform:translateY(14px) scale(.995)}to{opacity:1;transform:none}}
+  .modal-x{position:absolute;right:12px;top:12px;z-index:3;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);display:grid;place-items:center;color:#26251f;box-shadow:0 6px 18px -10px rgba(0,0,0,.5)}
+  .modal-x:hover{background:#fff}
+
+  .detail-card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);width:min(980px,100%);max-height:89vh;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 60px 100px -60px rgba(0,0,0,.8);animation:rise .3s cubic-bezier(.2,.8,.2,1)}
+  .detail-media{position:relative;background:#efece6;min-height:340px;overflow:hidden}
+  .detail-media svg{position:absolute;inset:0;width:100%;height:100%}
+  .media-note{position:absolute;left:14px;bottom:14px;font-size:10.5px;letter-spacing:.02em;color:#7c776c;background:rgba(255,255,255,.82);backdrop-filter:blur(6px);padding:5px 9px;border-radius:999px}
+  .detail-info{padding:30px 30px 34px;overflow-y:auto;overscroll-behavior:contain}
+  .d-brand{font-size:10.5px;letter-spacing:.12em;font-weight:700;color:#9d978c;text-transform:uppercase;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .d-brand .tagline{letter-spacing:-.01em;text-transform:none;color:#a9a49a;font-weight:600;font-size:11px}
+  .d-name{font-size:22px;line-height:1.32;letter-spacing:-.04em;font-weight:800;margin:10px 0 10px}
+  .d-rate{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#5d5a53;margin-bottom:16px}
+  .d-rate .stars{color:#c9a227;letter-spacing:1px;font-size:12px}
+  .d-rate b{color:#191814}
+  .d-rate .sep{color:#d6d1c6}
+  .d-price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .d-off{color:var(--accent);font-size:22px;font-weight:800;letter-spacing:-.04em}
+  .d-now{font-size:30px;font-weight:800;letter-spacing:-.05em}
+  .d-now small{font-size:16px;font-weight:700;margin-left:1px}
+  .d-list{font-size:13px;color:#aba69c;text-decoration:line-through}
+  .d-deal{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:11.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:7px;padding:5px 9px}
+  .d-desc{font-size:13.5px;color:#5d5a53;line-height:1.7;margin:18px 0 20px;padding-top:18px;border-top:1px solid #f1eee8}
+  .opt{border-top:1px solid #f1eee8;padding:16px 0 2px}
+  .opt-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .opt-head > span{font-size:12px;font-weight:700;color:#3b3a34;letter-spacing:-.01em}
+  .opt-head b{font-size:12px;font-weight:600;color:#6f6a60}
+  .opt-head .link{font-size:11.5px;color:#8b877f;text-decoration:underline;text-underline-offset:3px}
+  .swatches{display:flex;gap:8px;flex-wrap:wrap}
+  .swatch{width:32px;height:32px;border-radius:50%;position:relative;display:grid;place-items:center;border:1px solid rgba(0,0,0,.1);transition:transform .15s}
+  .swatch i{width:100%;height:100%;border-radius:50%;display:block}
+  .swatch[aria-pressed="true"]{box-shadow:0 0 0 2px #fff,0 0 0 3.5px #171614}
+  .swatch:hover{transform:scale(1.06)}
+  .sizes{display:flex;gap:6px;flex-wrap:wrap}
+  .size-btn{min-width:50px;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:9px;font-size:13px;font-weight:600;color:#3b3a34;transition:.15s;position:relative}
+  .size-btn:hover{border-color:#b6b0a4}
+  .size-btn[aria-pressed="true"]{background:#121211;color:#fff;border-color:#121211}
+  .size-btn.sold{color:#c6c0b4;text-decoration:line-through;cursor:not-allowed;background:#faf8f4}
+  .size-btn.sold:hover{border-color:var(--line)}
+  .need .sizes{animation:shake .35s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  .qty-stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:9px;height:40px;overflow:hidden}
+  .qty-stepper button{width:40px;height:40px;display:grid;place-items:center;color:#3b3a34}
+  .qty-stepper button:hover{background:#f6f3ee}
+  .qty-stepper button:disabled{color:#d3cec3;cursor:not-allowed}
+  .qty-stepper span{min-width:38px;text-align:center;font-weight:800;font-size:13.5px;font-variant-numeric:tabular-nums}
+  .d-stock{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:11.5px;color:#8b877f}
+  .d-stock .bar{flex:1;height:4px;border-radius:2px;background:#f1eee8;overflow:hidden}
+  .d-stock .bar i{display:block;height:100%;background:linear-gradient(90deg,#ff7a5c,var(--accent));border-radius:2px}
+  .d-stock b{color:var(--accent);font-weight:700}
+  .d-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px;padding-top:16px;border-top:1px solid #eae6de}
+  .d-total span{font-size:12.5px;color:#5d5a53;font-weight:600}
+  .d-total b{font-size:20px;letter-spacing:-.04em;font-weight:800}
+  .d-actions{display:flex;gap:8px;margin-top:14px}
+  .wish-lg{width:52px;height:52px;border:1px solid var(--line);border-radius:12px;display:grid;place-items:center;color:#3b3a34;flex:none;transition:.18s}
+  .wish-lg:hover{border-color:#b6b0a4}
+  .wish-lg.on{color:var(--accent);border-color:rgba(255,59,48,.4);background:var(--accent-soft)}
+  .add-btn{flex:1;height:52px;border-radius:12px;background:#121211;color:#fff;font-weight:800;font-size:15px;letter-spacing:-.02em;display:flex;align-items:center;justify-content:center;gap:8px;transition:.18s}
+  .add-btn:hover{background:#000}
+  .d-spec{margin-top:22px;border-top:1px solid #f1eee8;padding-top:6px}
+  .d-spec li{display:flex;justify-content:space-between;gap:14px;padding:8px 0;font-size:12px;border-bottom:1px solid #f7f5f1}
+  .d-spec li:last-child{border-bottom:0}
+  .d-spec span{color:#9d978c;flex:none}
+  .d-spec b{font-weight:600;color:#3b3a34;text-align:right}
+  .d-note{margin-top:16px;font-size:10.5px;color:#a9a49a;line-height:1.6;background:#faf8f4;border-radius:9px;padding:10px 12px}
+
+  /* order complete */
+  .order-card{position:relative;width:min(440px,100%);background:#fff;border-radius:22px;padding:34px 28px 26px;text-align:center;box-shadow:0 60px 100px -60px rgba(0,0,0,.8);animation:rise .3s cubic-bezier(.2,.8,.2,1)}
+  .order-ic{width:60px;height:60px;border-radius:50%;background:#121211;color:#fff;display:grid;place-items:center;margin:0 auto 16px}
+  .order-card h3{font-size:19px;letter-spacing:-.03em;font-weight:800;margin-bottom:6px}
+  .order-card p{font-size:12.5px;color:var(--muted);line-height:1.6}
+  .order-box{margin:20px 0 18px;background:#faf8f4;border-radius:12px;padding:14px 16px;text-align:left}
+  .order-box .row{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:#5d5a53;padding:4px 0}
+  .order-box .row b{color:#191814;font-weight:700}
+  .order-box .row.total{border-top:1px solid #ece7de;margin-top:6px;padding-top:10px;font-size:13px}
+  .order-box .row.total b{font-size:16px;letter-spacing:-.03em}
+  .order-note{font-size:10.5px;color:#a9a49a;line-height:1.6;margin-bottom:18px}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,14px);background:#141413;color:#fff;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:600;letter-spacing:-.01em;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:200;max-width:calc(100% - 32px);text-align:center;box-shadow:0 20px 40px -20px rgba(0,0,0,.6)}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  /* mobile cart bar */
+  .m-cart{position:fixed;left:12px;right:12px;bottom:12px;z-index:55;display:none;align-items:center;gap:10px;background:#121211;color:#fff;border-radius:14px;padding:11px 12px 11px 16px;box-shadow:0 24px 40px -22px rgba(0,0,0,.8)}
+  .m-cart .m-info{flex:1;min-width:0;text-align:left}
+  .m-cart .m-info b{display:block;font-size:13px;letter-spacing:-.01em}
+  .m-cart .m-info span{display:block;font-size:11px;color:#a8a294;margin-top:2px}
+  .m-cart .m-go{background:#fff;color:#121211;font-weight:800;font-size:12.5px;border-radius:9px;padding:9px 13px;flex:none}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1080px){
+    .hero .wrap{grid-template-columns:1fr;gap:36px}
+    .hero-visual{max-width:480px;width:100%}
+    .hero p{max-width:520px}
+    .band .wrap{grid-template-columns:1fr;gap:26px;align-items:start}
+  }
+  @media (max-width:860px){
+    .detail-card{grid-template-columns:1fr;max-height:92vh;overflow-y:auto;border-radius:20px}
+    .detail-media{position:relative;min-height:0;aspect-ratio:1/1.06}
+    .detail-info{padding:24px 22px 30px;overflow:visible}
+    .detail-card .modal-x{background:rgba(255,255,255,.94)}
+  }
+  @media (max-width:820px){
+    .nav{display:none}
+    .perks .wrap{grid-template-columns:1fr 1fr}
+    .perk{padding:18px 16px;border-left:1px solid var(--line)}
+    .perk:nth-child(odd){border-left:0;padding-left:0}
+    .perk:nth-child(n+3){border-top:1px solid var(--line)}
+    .band-stats div b{font-size:17px}
+  }
+  @media (max-width:720px){
+    :root{--header-h:58px}
+    .wrap{width:calc(100% - 32px)}
+    .promo .wrap{height:34px}
+    .promo-right{display:none}
+    .promo-left{font-size:11.5px;gap:8px}
+    .logo b{font-size:18px}
+    .logo span{font-size:7px;letter-spacing:.2em;margin-top:5px}
+    .hero{padding:34px 0 32px}
+    .hero h1{font-size:clamp(29px,8.4vw,38px);margin:14px 0 14px;letter-spacing:-.045em}
+    .hero p{font-size:13.8px;line-height:1.7;margin-bottom:20px}
+    .btn{padding:12px 20px;font-size:13.5px}
+    .timer-card{margin-top:22px;padding:11px 14px;gap:12px;border-radius:15px;width:100%;justify-content:space-between}
+    .timer{font-size:19px}
+    .timer span{min-width:32px;padding:3px 4px;border-radius:7px}
+    .float{font-size:11px;padding:7px 10px;border-radius:10px}
+    .f-off{width:62px;height:62px;font-size:11px;right:10px;top:10px}
+    .f-off b{font-size:18px}
+    .f-ship{left:10px;bottom:10px}
+    .f-close{right:10px;bottom:10px;font-size:10.5px}
+    .catalog{padding:34px 0 56px}
+    .cat-head{flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:14px}
+    .cat-head p{font-size:12px}
+    .result-count{display:none}
+    .toolbar{position:static;flex-direction:column;align-items:stretch;gap:10px;padding:0;border-bottom:0;margin-bottom:18px;background:none;backdrop-filter:none}
+    .tools{justify-content:space-between}
+    .search{flex:1}
+    .search input{width:100%;flex:1}
+    .grid{grid-template-columns:1fr 1fr;gap:22px 10px}
+    .card-media{border-radius:12px}
+    .p-name{font-size:13px;min-height:2.9em;margin:5px 0 7px}
+    .p-brand{font-size:9.5px;letter-spacing:.08em}
+    .price{font-size:15px}
+    .pct{font-size:13.5px}
+    .list{font-size:11px;width:100%}
+    .p-meta{font-size:10.5px;flex-wrap:wrap;gap:3px}
+    .chips{gap:3px;left:7px;bottom:7px}
+    .chip{font-size:9.5px;padding:3px 5px}
+    .disc{font-size:10.5px;left:7px;top:7px;padding:4px 6px}
+    .wish{width:30px;height:30px;right:6px;top:6px}
+    .band{padding:40px 0}
+    .band-stats{grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .band-stats div b{font-size:15px}
+    .band-stats div span{font-size:10px}
+    .m-cart.show{display:flex}
+    .toast{bottom:82px}
+    .drawer{width:100%;border-radius:0}
+    .modal{padding:0;align-items:flex-end}
+    .detail-card{max-height:94vh;border-radius:20px 20px 0 0}
+    .detail-info{padding:20px 18px 26px}
+    .d-name{font-size:19px}
+    .d-now{font-size:26px}
+    .d-off{font-size:19px}
+    .order-card{border-radius:20px 20px 0 0;width:100%;padding:30px 20px 24px}
+    .foot-top{gap:26px}
+    .foot-cols{gap:30px}
+    .foot-col button,.foot-col a{font-size:12px}
+  }
+  @media (max-width:400px){
+    .grid{gap:20px 8px}
+    .p-name{font-size:12.5px}
+    .price{font-size:14.5px}
+    .timer span{min-width:29px;font-size:17px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  }
+</style>
+</head>
+<body>
+
+<div class="promo">
+  <div class="wrap">
+    <div class="promo-left">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span><b>동대문 직송</b><span class="sep">·</span>오늘만 최대 45% 타임특가</span>
+      <span class="sep">·</span>
+      <span id="promoTimer">오늘 자정 마감</span>
+    </div>
+    <div class="promo-right">
+      <span class="proto-chip">TEST PROTOTYPE</span>
+    </div>
+  </div>
+</div>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="logo" href="#" id="logoLink" aria-label="새벽시장 홈">
+      <b>새벽시장</b>
+      <span>DONGDAEMUN · DIRECT</span>
+    </a>
+    <nav class="nav" aria-label="카테고리">
+      <button data-nav="all">신상품</button>
+      <button data-nav="deal">타임특가</button>
+      <button data-nav="outer">아우터</button>
+      <button data-nav="knit">니트/맨투맨</button>
+      <button data-nav="pants">팬츠/데님</button>
+      <button data-nav="set">원피스/셋업</button>
+    </nav>
+    <div class="hdr-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="상품 검색">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+      </button>
+      <button class="icon-btn" id="wishBtn" aria-label="찜한 상품">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 20s-7-4.6-9.2-9A5.1 5.1 0 0 1 12 6.4 5.1 5.1 0 0 1 21.2 11C19 15.4 12 20 12 20Z"/></svg>
+      </button>
+      <button class="icon-btn" id="cartBtn" aria-label="장바구니 열기" aria-haspopup="dialog">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+        <span class="count-badge" id="cartBadge" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Week 47 · 동대문 도매 신상</span>
+        <h1>이번 주 동대문<br><span class="hl">베스트 특가</span></h1>
+        <p>새벽 시장에서 갓 올라온 신상들을 도매가에 가까운 특가로. 오늘 자정까지만 열리는 타임딜을 확인해 보세요.</p>
+        <div class="cta-row">
+          <button class="btn btn-dark" id="heroCta">특가 둘러보기
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg>
+          </button>
+          <button class="btn btn-line" data-nav="set">셋업 컬렉션</button>
+        </div>
+        <div class="timer-card">
+          <div class="t-label">오늘의 타임딜<b>자정까지 남은 시간</b></div>
+          <div class="timer" role="timer" aria-live="off">
+            <span id="tH">00</span><i>:</i><span id="tM">00</span><i>:</i><span id="tS">00</span><em>남음</em>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" id="heroVisual">
+        <div class="float f-off"><b>-45%</b><small>TIME DEAL</small></div>
+        <div class="float f-ship">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h10v8H3z"/><path d="M13 10h4l3 3v2h-7z"/><circle cx="6.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/></svg>
+          <div>동대문 직송<small>평균 1~2일 도착</small></div>
+        </div>
+        <div class="float f-close"><span class="dot-red" aria-hidden="true"></span>오늘 자정 마감</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="perks" aria-label="쇼핑 혜택">
+    <div class="wrap">
+      <div class="perk">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h10v8H3z"/><path d="M13 10h4l3 3v2h-7z"/><circle cx="6.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/></svg>
+        <div><b>동대문 직송</b><span>중간 유통 없이 도매 상가에서 바로</span></div>
+      </div>
+      <div class="perk">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+        <div><b>오늘출발</b><span>평일 오후 2시 이전 주문 건</span></div>
+      </div>
+      <div class="perk">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7 9.5 17.5 4 12"/></svg>
+        <div><b>5만원 이상 무료배송</b><span>미만 구매 시 배송비 3,000원</span></div>
+      </div>
+      <div class="perk">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 1 3 6.2"/><path d="M4 20v-5h5"/></svg>
+        <div><b>7일 교환·반품</b><span>수령 후 7일 이내 접수 가능</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="catalog" id="catalog">
+    <div class="wrap">
+      <div class="cat-head">
+        <div>
+          <h2>오늘의 특가 <span class="live">LIVE</span></h2>
+          <p>동대문 도매 상가 인기 아이템을 특가로 준비했어요.</p>
+        </div>
+        <div class="result-count" id="resultCount"></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="tabs" role="tablist" aria-label="카테고리 필터" id="tabs"></div>
+        <div class="tools">
+          <div class="search" id="searchWrap">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+            <input type="search" id="searchInput" placeholder="상품명 검색" aria-label="상품명 검색" autocomplete="off">
+            <button class="clear" id="searchClear" aria-label="검색어 지우기">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+          </div>
+          <label class="sr" for="sortSelect">정렬</label>
+          <select class="sort" id="sortSelect">
+            <option value="pick">추천순</option>
+            <option value="low">낮은 가격순</option>
+            <option value="high">높은 가격순</option>
+            <option value="disc">할인율 높은순</option>
+            <option value="review">리뷰 많은순</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid" id="grid"></div>
+      <div class="empty" id="empty" hidden>
+        <b>조건에 맞는 상품이 없어요</b>
+        <span>검색어나 카테고리를 바꿔서 다시 찾아보세요.</span>
+        <button class="btn btn-dark" id="resetBtn">필터 초기화</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Dawn in Dongdaemun</span>
+        <h2>동대문 도매 시장의 새벽,<br>그 온도를 그대로 담았습니다.</h2>
+        <p>새벽 4시, 상가 불이 켜지는 시간에 맞춰 신상이 올라옵니다. 중간 유통을 줄이고, 사입 동선을 줄여 합리적인 가격에 전합니다. 이 화면은 동업자와 상의하기 위한 테스트 프로토타입입니다.</p>
+      </div>
+      <div class="band-stats">
+        <div><b>주 3회</b><span>신상 업데이트</span></div>
+        <div><b>1.8일</b><span>평균 배송</span></div>
+        <div><b>7일</b><span>교환·반품</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="logo"><b>새벽시장</b><span>DONGDAEMUN · DIRECT</span></div>
+        <p>동대문 도매 신상을 특가로 전하는 테스트용 쇼핑몰 프로토타입입니다. 표시된 가격·재고·배송 정보는 모두 예시 값이며 실제 판매가 아닙니다.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <b>Shop</b>
+          <button data-nav="all">신상품</button>
+          <button data-nav="deal">타임특가</button>
+          <button data-nav="set">셋업 컬렉션</button>
+        </div>
+        <div class="foot-col">
+          <b>Help</b>
+          <button data-foot="1">배송 안내</button>
+          <button data-foot="1">교환·반품 안내</button>
+          <button data-foot="1">사이즈 가이드</button>
+        </div>
+        <div class="foot-col">
+          <b>About</b>
+          <button data-foot="1">브랜드 스토리</button>
+          <button data-foot="1">도매 제안</button>
+          <button data-foot="1">고객센터</button>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="fine">상호 새벽시장(프로토타입) · 대표 최형선 · 사업자등록번호 000-00-00000 · 서울특별시 중구 동대문 (예시)<br>고객센터 02-000-0000 (평일 10:00–18:00) · 이 페이지는 테스트용이며 실제 결제·배송이 이루어지지 않습니다.</div>
+      <div>© 2026 새벽시장 Prototype</div>
+    </div>
+  </div>
+</footer>
+
+<!-- cart -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="장바구니" aria-hidden="true">
+  <div class="drawer-hd">
+    <h3>장바구니 <span id="cartCount">0</span></h3>
+    <button class="x-btn" data-close-cart aria-label="장바구니 닫기">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
+
+<div class="m-cart" id="mCart">
+  <div class="m-info"><b id="mCartTitle">장바구니</b><span id="mCartSub">담긴 상품이 없습니다</span></div>
+  <button class="m-go" id="mCartGo">보기</button>
+</div>
+
+<!-- detail modal -->
+<div class="modal" id="detailModal" aria-hidden="true">
+  <div class="modal-scrim" data-close-detail></div>
+  <div class="detail-card" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <button class="modal-x" data-close-detail aria-label="닫기">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="detail-media" id="detailMedia"></div>
+    <div class="detail-info" id="detailInfo"></div>
+  </div>
+</div>
+
+<!-- order modal -->
+<div class="modal" id="orderModal" aria-hidden="true">
+  <div class="modal-scrim" data-close-order></div>
+  <div class="order-card" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+    <div class="order-ic">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7 9.5 17.5 4 12"/></svg>
+    </div>
+    <h3 id="orderTitle">테스트 주문이 완료되었습니다</h3>
+    <p>실제 결제는 이루어지지 않았습니다.<br>프로토타입 화면에서 주문 흐름만 확인해 주세요.</p>
+    <div class="order-box" id="orderBox"></div>
+    <p class="order-note">이 화면은 동업자와 상의하기 위한 데모입니다. 카드 정보 입력, 결제, 배송은 모두 가상으로 처리됩니다.</p>
+    <button class="btn-block" data-close-order>계속 둘러보기</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------------- utilities ---------------- */
+  var won = function(n){ return n.toLocaleString('ko-KR'); };
+  function $(sel, root){ return (root || document).querySelector(sel); }
+  function $$(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  function shade(hex, amt){
+    var n = parseInt(hex.slice(1), 16);
+    var r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    var target = amt < 0 ? 0 : 255;
+    var p = Math.abs(amt);
+    r = Math.round((target - r) * p + r);
+    g = Math.round((target - g) * p + g);
+    b = Math.round((target - b) * p + b);
+    function h(v){ v = Math.max(0, Math.min(255, v)); return v.toString(16).padStart(2, '0'); }
+    return '#' + h(r) + h(g) + h(b);
+  }
+
+  var FONT_SVG = "Helvetica, Arial, sans-serif";
+
+  /* ---------------- inline SVG garment illustrations ---------------- */
+  var ART = {
+    coat: function(k){
+      return '' +
+      '<g>' +
+        '<path d="M166 96 C154 98 146 100 140 106 L140 200 L142 452 L258 452 L260 200 L260 106 C254 100 246 98 234 96 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.14)" stroke-width="1.2" stroke-linejoin="round"/>' +
+        '<path d="M140 200 L142 452 L156 452 L156 200 Z" fill="#000" opacity=".1"/>' +
+        '<path d="M260 200 L258 452 L244 452 L244 200 Z" fill="#000" opacity=".07"/>' +
+        '<path d="M164 96 C152 100 144 104 140 112 L112 158 L108 420 L144 424 L150 300 C154 224 159 152 164 96 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.16)" stroke-width="1.2" stroke-linejoin="round"/>' +
+        '<path d="M236 96 C248 100 256 104 260 112 L288 158 L292 420 L256 424 L250 300 C246 224 241 152 236 96 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.16)" stroke-width="1.2" stroke-linejoin="round"/>' +
+        '<path d="M114 162 L110 420 L124 421 L126 166 Z" fill="#000" opacity=".08"/>' +
+        '<path d="M286 162 L290 420 L276 421 L274 166 Z" fill="#000" opacity=".1"/>' +
+        '<path d="M174 90 L200 97 L226 90 L234 130 L200 154 L166 130 Z" fill="' + k.d + '"/>' +
+        '<path d="M166 130 L200 154 L200 300 L178 214 Z" fill="#000" opacity=".16"/>' +
+        '<path d="M234 130 L200 154 L200 300 L222 214 Z" fill="#fff" opacity=".08"/>' +
+        '<circle cx="200" cy="246" r="3.2" fill="#fff" opacity=".45"/>' +
+        '<circle cx="200" cy="272" r="3.2" fill="#fff" opacity=".45"/>' +
+        '<path d="M160 232 h30 M210 232 h30" stroke="#000" stroke-opacity=".16" stroke-width="2.5" stroke-linecap="round"/>' +
+        '<rect x="150" y="304" width="100" height="15" rx="3" fill="' + k.d + '"/>' +
+        '<rect x="188" y="301" width="24" height="21" rx="4" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>' +
+      '</g>';
+    },
+    cardigan: function(k){
+      return '' +
+      '<g>' +
+        '<path d="M174 112 C164 114 158 116 154 120 L150 200 L148 306 L252 306 L250 200 L246 120 C242 116 236 114 226 112 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.16)" stroke-width="1.1" stroke-linejoin="round"/>' +
+        '<path d="M172 112 C160 116 152 122 148 132 L128 328 L164 332 L166 200 C166 164 168 136 172 112 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.18)" stroke-width="1.1" stroke-linejoin="round"/>' +
+        '<path d="M228 112 C240 116 248 122 252 132 L272 328 L236 332 L234 200 C234 164 232 136 228 112 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.18)" stroke-width="1.1" stroke-linejoin="round"/>' +
+        '<path d="M182 112 L200 176 L218 112 L209 106 L200 148 L191 106 Z" fill="' + k.d + '"/>' +
+        '<path d="M200 176 L200 306" stroke="#000" stroke-opacity=".16" stroke-width="1.5"/>' +
+        '<circle cx="200" cy="196" r="3" fill="#fff" opacity=".5"/>' +
+        '<circle cx="200" cy="228" r="3" fill="#fff" opacity=".5"/>' +
+        '<circle cx="200" cy="260" r="3" fill="#fff" opacity=".5"/>' +
+        '<circle cx="200" cy="284" r="3" fill="#fff" opacity=".5"/>' +
+        '<path d="M168 296 v10 M180 298 v8 M192 299 v8 M208 299 v8 M220 298 v8 M232 296 v10" stroke="#000" stroke-opacity=".13" stroke-width="2"/>' +
+        '<path d="M128 328 L164 332 L162 338 L126 334 Z" fill="#000" opacity=".12"/>' +
+        '<path d="M272 328 L236 332 L238 338 L274 334 Z" fill="#000" opacity=".12"/>' +
+      '</g>';
+    },
+    denim: function(k){
+      return '' +
+      '<g>' +
+        '<path d="M150 134 L250 134 L255 408 L206 408 L200 214 L194 408 L145 408 Z" fill="url(#' + k.g + ')"/>' +
+        '<rect x="147" y="106" width="106" height="30" rx="4" fill="' + k.d + '"/>' +
+        '<circle cx="200" cy="121" r="4" fill="#fff" opacity=".45"/>' +
+        '<path d="M200 134 L200 408" stroke="#fff" stroke-opacity=".16" stroke-width="2" stroke-dasharray="7 6"/>' +
+        '<path d="M160 156 q12 20 32 8" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="2" stroke-linecap="round"/>' +
+        '<path d="M240 156 q-12 20 -32 8" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="2" stroke-linecap="round"/>' +
+        '<path d="M156 134 v10 M178 134 v10 M222 134 v10 M244 134 v10" stroke="#000" stroke-opacity=".18" stroke-width="3"/>' +
+        '<path d="M145 408 L150 134 L160 134 L155 408 Z" fill="#000" opacity=".13"/>' +
+        '<path d="M255 408 L250 134 L240 134 L245 408 Z" fill="#000" opacity=".1"/>' +
+        '<path d="M168 300 q32 8 64 0" fill="none" stroke="#fff" stroke-opacity=".07" stroke-width="6"/>' +
+      '</g>';
+    },
+    blazer: function(k){
+      return '' +
+      '<g>' +
+        '<path d="M166 100 C178 90 188 87 200 95 C212 87 222 90 234 100 L240 180 L240 404 L160 404 L160 180 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.14)" stroke-width="1.2" stroke-linejoin="round"/>' +
+        '<path d="M160 180 L160 404 L172 404 L172 180 Z" fill="#000" opacity=".1"/>' +
+        '<path d="M240 180 L240 404 L228 404 L228 180 Z" fill="#000" opacity=".07"/>' +
+        '<path d="M170 100 C158 104 148 110 144 118 L124 160 L120 372 L152 376 L156 260 C158 208 164 140 170 100 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.16)" stroke-width="1.2" stroke-linejoin="round"/>' +
+        '<path d="M230 100 C242 104 252 110 256 118 L276 160 L280 372 L248 376 L244 260 C242 208 236 140 230 100 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.16)" stroke-width="1.2" stroke-linejoin="round"/>' +
+        '<path d="M126 164 L122 372 L134 373 L136 168 Z" fill="#000" opacity=".08"/>' +
+        '<path d="M274 164 L278 372 L266 373 L264 168 Z" fill="#000" opacity=".1"/>' +
+        '<path d="M200 97 L170 118 L196 292 Z" fill="' + k.d + '"/>' +
+        '<path d="M200 97 L230 118 L204 292 Z" fill="#fff" opacity=".07"/>' +
+        '<path d="M186 100 L200 122 L214 100 L208 96 L200 112 L192 96 Z" fill="' + k.d + '"/>' +
+        '<circle cx="200" cy="300" r="4" fill="#fff" opacity=".45"/>' +
+        '<path d="M168 320 h24 M212 320 h24" stroke="#000" stroke-opacity=".18" stroke-width="2.5" stroke-linecap="round"/>' +
+      '</g>';
+    },
+    sweat: function(k){
+      return '' +
+      '<g>' +
+        '<path d="M168 132 C180 122 190 119 200 125 C210 119 220 122 232 132 L238 200 L236 418 L164 418 L162 200 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.14)" stroke-width="1.2" stroke-linejoin="round"/>' +
+        '<path d="M170 131 C156 137 148 144 144 156 L128 386 L160 390 L162 250 C163 196 166 158 170 131 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.26)" stroke-width="1.3" stroke-linejoin="round"/>' +
+        '<path d="M230 131 C244 137 252 144 256 156 L272 386 L240 390 L238 250 C237 196 234 158 230 131 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.26)" stroke-width="1.3" stroke-linejoin="round"/>' +
+        '<path d="M130 160 L128 386 L138 387 L140 164 Z" fill="#000" opacity=".1"/>' +
+        '<path d="M270 160 L272 386 L262 387 L260 164 Z" fill="#000" opacity=".1"/>' +
+        '<path d="M162 250 L160 388" stroke="#000" stroke-opacity=".18" stroke-width="2.2"/>' +
+        '<path d="M238 250 L240 388" stroke="#000" stroke-opacity=".18" stroke-width="2.2"/>' +
+        '<ellipse cx="200" cy="129" rx="27" ry="12" fill="' + k.d + '"/>' +
+        '<path d="M176 130 q24 9 48 0" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="1.6"/>' +
+        '<path d="M170 406 v12 M182 410 v12 M194 412 v12 M206 412 v12 M218 410 v12 M230 406 v12" stroke="#000" stroke-opacity=".16" stroke-width="2"/>' +
+        '<path d="M132 380 v10 M140 382 v8 M148 383 v8 M152 383 v8" stroke="#000" stroke-opacity=".14" stroke-width="2"/>' +
+        '<path d="M268 380 v10 M260 382 v8 M252 383 v8 M248 383 v8" stroke="#000" stroke-opacity=".14" stroke-width="2"/>' +
+      '</g>';
+    },
+    slacks: function(k){
+      return '' +
+      '<g>' +
+        '<path d="M152 128 L248 128 L256 424 L208 424 L200 232 L192 424 L144 424 Z" fill="url(#' + k.g + ')"/>' +
+        '<rect x="149" y="102" width="102" height="28" rx="3" fill="' + k.d + '"/>' +
+        '<path d="M186 136 q-5 50 -5 92" fill="none" stroke="#000" stroke-opacity=".16" stroke-width="2"/>' +
+        '<path d="M214 136 q5 50 5 92" fill="none" stroke="#000" stroke-opacity=".16" stroke-width="2"/>' +
+        '<path d="M172 140 L166 424 M228 140 L234 424" stroke="#fff" stroke-opacity=".13" stroke-width="2"/>' +
+        '<path d="M156 128 v12 M178 128 v12 M222 128 v12 M244 128 v12" stroke="#000" stroke-opacity=".2" stroke-width="3"/>' +
+        '<path d="M144 424 L152 128 L162 128 L154 424 Z" fill="#000" opacity=".12"/>' +
+        '<path d="M256 424 L248 128 L238 128 L246 424 Z" fill="#000" opacity=".1"/>' +
+      '</g>';
+    },
+    knit: function(k){
+      return '' +
+      '<g>' +
+        '<path d="M174 118 C164 120 158 122 154 126 L150 204 L148 356 L252 356 L250 204 L246 126 C242 122 236 120 226 118 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.16)" stroke-width="1.1" stroke-linejoin="round"/>' +
+        '<path d="M172 118 C160 122 152 128 148 138 L136 308 L162 312 L166 204 C166 168 168 142 172 118 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.18)" stroke-width="1.1" stroke-linejoin="round"/>' +
+        '<path d="M228 118 C240 122 248 128 252 138 L264 308 L238 312 L234 204 C234 168 232 142 228 118 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.18)" stroke-width="1.1" stroke-linejoin="round"/>' +
+        '<ellipse cx="200" cy="120" rx="26" ry="12" fill="' + k.d + '"/>' +
+        '<path d="M172 152 q28 8 56 0 M172 176 q28 8 56 0 M172 200 q28 8 56 0 M172 224 q28 8 56 0 M172 248 q28 8 56 0 M172 272 q28 8 56 0 M172 296 q28 8 56 0 M172 320 q28 8 56 0 M172 342 q28 8 56 0" fill="none" stroke="#000" stroke-opacity=".09" stroke-width="2"/>' +
+        '<path d="M168 348 v8 M180 350 v6 M192 351 v6 M208 351 v6 M220 350 v6 M232 348 v8" stroke="#000" stroke-opacity=".13" stroke-width="2"/>' +
+        '<path d="M136 308 L148 308 L150 312 L138 312 Z" fill="#000" opacity=".12"/>' +
+        '<path d="M264 308 L252 308 L250 312 L262 312 Z" fill="#000" opacity=".12"/>' +
+      '</g>';
+    },
+    dress: function(k){
+      return '' +
+      '<g>' +
+        '<path d="M174 112 C184 104 192 101 200 107 C208 101 216 104 226 112 L252 124 L240 200 C238 208 237 214 238 222 L272 430 C240 442 160 442 128 430 L162 222 C163 214 162 208 160 200 L148 124 Z" fill="url(#' + k.g + ')"/>' +
+        '<path d="M186 108 L200 150 L214 108 L206 104 L200 132 L194 104 Z" fill="' + k.d + '"/>' +
+        '<path d="M172 112 L148 154 L138 206 L158 212 Z" fill="url(#' + k.g + ')"/>' +
+        '<path d="M228 112 L252 154 L262 206 L242 212 Z" fill="url(#' + k.g + ')"/>' +
+        '<rect x="158" y="214" width="84" height="14" rx="3" fill="' + k.d + '"/>' +
+        '<path d="M176 232 L160 430 M200 232 L200 438 M224 232 L240 430" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>' +
+        '<path d="M128 430 L162 222 L172 222 L140 430 Z" fill="#000" opacity=".12"/>' +
+      '</g>';
+    },
+    trench: function(k){
+      return '' +
+      '<g>' +
+        '<path d="M166 94 C154 96 146 98 140 104 L140 200 L142 468 L258 468 L260 200 L260 104 C254 98 246 96 234 94 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.14)" stroke-width="1.2" stroke-linejoin="round"/>' +
+        '<path d="M140 200 L142 468 L156 468 L156 200 Z" fill="#000" opacity=".1"/>' +
+        '<path d="M260 200 L258 468 L244 468 L244 200 Z" fill="#000" opacity=".07"/>' +
+        '<path d="M164 94 C152 98 144 102 140 110 L112 156 L108 436 L144 440 L150 300 C154 226 159 150 164 94 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.16)" stroke-width="1.2" stroke-linejoin="round"/>' +
+        '<path d="M236 94 C248 98 256 102 260 110 L288 156 L292 436 L256 440 L250 300 C246 226 241 150 236 94 Z" fill="url(#' + k.g + ')" stroke="rgba(0,0,0,.16)" stroke-width="1.2" stroke-linejoin="round"/>' +
+        '<path d="M114 160 L110 436 L124 437 L126 164 Z" fill="#000" opacity=".08"/>' +
+        '<path d="M286 160 L290 436 L276 437 L274 164 Z" fill="#000" opacity=".1"/>' +
+        '<path d="M168 108 L232 108 L236 146 L164 146 Z" fill="' + k.d + '" opacity=".8"/>' +
+        '<path d="M176 88 L200 95 L224 88 L232 126 L200 148 L168 126 Z" fill="' + k.d + '"/>' +
+        '<circle cx="186" cy="180" r="3" fill="#fff" opacity=".45"/>' +
+        '<circle cx="214" cy="180" r="3" fill="#fff" opacity=".45"/>' +
+        '<circle cx="186" cy="220" r="3" fill="#fff" opacity=".45"/>' +
+        '<circle cx="214" cy="220" r="3" fill="#fff" opacity=".45"/>' +
+        '<circle cx="186" cy="260" r="3" fill="#fff" opacity=".45"/>' +
+        '<circle cx="214" cy="260" r="3" fill="#fff" opacity=".45"/>' +
+        '<path d="M200 148 L200 330" stroke="#000" stroke-opacity=".14" stroke-width="1.5"/>' +
+        '<rect x="150" y="330" width="100" height="15" rx="3" fill="' + k.d + '"/>' +
+        '<rect x="188" y="327" width="24" height="21" rx="4" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="2"/>' +
+      '</g>';
+    },
+    skirt: function(k){
+      return '' +
+      '<g>' +
+        '<path d="M156 152 L244 152 L286 430 C244 444 156 444 114 430 Z" fill="url(#' + k.g + ')"/>' +
+        '<rect x="152" y="124" width="96" height="30" rx="3" fill="' + k.d + '"/>' +
+        '<path d="M160 156 L120 428 M180 156 L160 438 M200 156 L200 440 M220 156 L240 438 M240 156 L280 428" stroke="#fff" stroke-opacity=".1" stroke-width="2"/>' +
+        '<path d="M158 124 v10 M180 124 v10 M220 124 v10 M242 124 v10" stroke="#000" stroke-opacity=".18" stroke-width="3"/>' +
+        '<path d="M114 430 L156 152 L166 152 L126 430 Z" fill="#000" opacity=".1"/>' +
+      '</g>';
+    },
+    overshirt: function(k){
+      return '' +
+      '<defs>' +
+        '<pattern id="st' + k.uid + '" width="18" height="18" patternUnits="userSpaceOnUse">' +
+          '<rect width="18" height="18" fill="' + k.c + '"/>' +
+          '<rect width="18" height="6" fill="' + k.d + '" opacity=".5"/>' +
+        '</pattern>' +
+      '</defs>' +
+      '<g>' +
+        '<path d="M166 106 L234 106 L272 124 L278 400 L246 406 L240 420 C222 428 178 428 160 420 L154 406 L122 400 L128 124 Z" fill="url(#st' + k.uid + ')"/>' +
+        '<path d="M166 106 L200 124 L200 420 M234 106 L200 124" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="2"/>' +
+        '<path d="M178 104 L200 118 L222 104 L230 112 L200 132 L170 112 Z" fill="' + k.d + '"/>' +
+        '<rect x="158" y="228" width="36" height="34" rx="3" fill="#000" opacity=".12"/>' +
+        '<rect x="206" y="228" width="36" height="34" rx="3" fill="#000" opacity=".12"/>' +
+        '<circle cx="200" cy="160" r="3" fill="#fff" opacity=".55"/>' +
+        '<circle cx="200" cy="204" r="3" fill="#fff" opacity=".55"/>' +
+        '<circle cx="200" cy="300" r="3" fill="#fff" opacity=".55"/>' +
+        '<circle cx="200" cy="344" r="3" fill="#fff" opacity=".55"/>' +
+        '<circle cx="200" cy="388" r="3" fill="#fff" opacity=".55"/>' +
+        '<path d="M122 400 L128 124 L138 124 L132 400 Z" fill="#000" opacity=".12"/>' +
+      '</g>';
+    },
+    corduroy: function(k){
+      var lines = '';
+      for (var x = 150; x <= 252; x += 7){
+        lines += '<path d="M' + x + ' 118 L' + x + ' 426" stroke="#000" stroke-opacity=".1" stroke-width="2.6"/>';
+      }
+      return '' +
+      '<defs><clipPath id="cp' + k.uid + '"><path d="M150 130 L250 130 L256 424 L208 424 L200 232 L192 424 L144 424 Z"/></clipPath></defs>' +
+      '<g>' +
+        '<path d="M150 130 L250 130 L256 424 L208 424 L200 232 L192 424 L144 424 Z" fill="url(#' + k.g + ')"/>' +
+        '<g clip-path="url(#cp' + k.uid + ')">' + lines + '</g>' +
+        '<rect x="147" y="102" width="106" height="30" rx="4" fill="' + k.d + '"/>' +
+        '<circle cx="200" cy="117" r="4" fill="#fff" opacity=".4"/>' +
+        '<path d="M156 130 v11 M178 130 v11 M222 130 v11 M244 130 v11" stroke="#000" stroke-opacity=".18" stroke-width="3"/>' +
+        '<path d="M144 424 L150 130 L160 130 L154 424 Z" fill="#000" opacity=".13"/>' +
+        '<path d="M256 424 L250 130 L240 130 L246 424 Z" fill="#000" opacity=".1"/>' +
+      '</g>';
+    }
+  };
+
+  var uidSeq = 0;
+  function art(p, colorHex){
+    var u = ++uidSeq;
+    var k = {
+      c: colorHex,
+      d: shade(colorHex, -0.24),
+      l: shade(colorHex, 0.14),
+      g: 'g' + u,
+      uid: u
+    };
+    return '<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' + p.name + ' 상품 이미지">' +
+      '<defs>' +
+        '<linearGradient id="' + k.g + '" x1="0" y1="0" x2="0.6" y2="1">' +
+          '<stop offset="0" stop-color="' + k.l + '"/>' +
+          '<stop offset="0.5" stop-color="' + k.c + '"/>' +
+          '<stop offset="1" stop-color="' + k.d + '"/>' +
+        '</linearGradient>' +
+        '<linearGradient id="bg' + u + '" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="' + p.bg[0] + '"/>' +
+          '<stop offset="1" stop-color="' + p.bg[1] + '"/>' +
+        '</linearGradient>' +
+      '</defs>' +
+      '<rect width="400" height="500" fill="url(#bg' + u + ')"/>' +
+      '<circle cx="312" cy="92" r="88" fill="#fff" opacity=".26"/>' +
+      '<circle cx="76" cy="404" r="56" fill="#fff" opacity=".14"/>' +
+      '<ellipse cx="200" cy="466" rx="110" ry="11" fill="#000" opacity=".07"/>' +
+      ART[p.art](k) +
+      '<text x="20" y="482" font-family="' + FONT_SVG + '" font-size="10" font-weight="700" letter-spacing="3.2" fill="#000" opacity=".2">' + p.label + '</text>' +
+    '</svg>';
+  }
+
+  var HERO_COAT = ART.coat({ c:'#ded2bf', d:'#b1a28a', l:'#f1e9da', g:'heroCoat', uid:0 });
+  function heroSvg(){
+    return '<svg viewBox="0 0 520 640" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="동대문 베스트 특가 연출 이미지">' +
+      '<defs>' +
+        '<linearGradient id="heroCoat" x1="0" y1="0" x2="0.6" y2="1">' +
+          '<stop offset="0" stop-color="#f1e9da"/><stop offset="0.5" stop-color="#ded2bf"/><stop offset="1" stop-color="#b1a28a"/>' +
+        '</linearGradient>' +
+        '<linearGradient id="heroBg" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="#1d1d1b"/><stop offset="1" stop-color="#101010"/>' +
+        '</linearGradient>' +
+        '<radialGradient id="heroGlow" cx="0.5" cy="0.45" r="0.6">' +
+          '<stop offset="0" stop-color="#cbb794" stop-opacity=".33"/><stop offset="1" stop-color="#cbb794" stop-opacity="0"/>' +
+        '</radialGradient>' +
+      '</defs>' +
+      '<rect width="520" height="640" fill="url(#heroBg)"/>' +
+      '<rect width="520" height="640" fill="url(#heroGlow)"/>' +
+      '<circle cx="262" cy="300" r="196" fill="none" stroke="#f4efe6" stroke-opacity=".1"/>' +
+      '<circle cx="262" cy="300" r="150" fill="#f4efe6" opacity=".04"/>' +
+      '<g transform="translate(60,86) scale(0.98)">' + HERO_COAT + '</g>' +
+      '<text x="28" y="596" font-family="' + FONT_SVG + '" font-size="11" font-weight="700" letter-spacing="5" fill="#f4efe6" opacity=".45">DONGDAEMUN</text>' +
+      '<text x="492" y="596" text-anchor="end" font-family="' + FONT_SVG + '" font-size="11" font-weight="700" letter-spacing="3" fill="#f4efe6" opacity=".45">WEEK 47</text>' +
+      '<path d="M28 570 H492" stroke="#f4efe6" stroke-opacity=".12"/>' +
+    '</svg>';
+  }
+
+  /* ---------------- data ---------------- */
+  var CATS = [
+    { id:'all', name:'전체' },
+    { id:'outer', name:'아우터' },
+    { id:'knit', name:'니트/맨투맨' },
+    { id:'pants', name:'팬츠/데님' },
+    { id:'set', name:'원피스/셋업' }
+  ];
+
+  var BG = {
+    outer: ['#f2ebe1', '#e2d7c7'],
+    knit:  ['#efe9dd', '#ddd4c2'],
+    pants: ['#eef0f2', '#dee2e7'],
+    set:   ['#f3ece9', '#e7dbd5']
+  };
+
+  var PRODUCTS = [
+    {
+      id:'dd01', name:'캐시미어 블렌드 오버핏 코트', brand:'DDM ATELIER', cat:'outer', art:'coat', label:'OUTER',
+      price:79000, list:129000, rating:4.8, reviews:1284, stock:12, best:true,
+      tags:['오늘출발','동대문직송'],
+      desc:'동대문 아우터 상가에서 가장 많이 나가는 실루엣. 어깨선을 살짝 떨어뜨린 오버핏으로 안에 니트를 겹쳐 입기 좋습니다. 캐시미어 혼방 소재로 가볍고 보온감이 있습니다.',
+      colors:[{n:'차콜',h:'#3a3b3f'},{n:'오트밀',h:'#d6c9b2'},{n:'블랙',h:'#1b1c1f'}],
+      sizes:[{n:'S',sold:false},{n:'M',sold:false},{n:'L',sold:false},{n:'XL',sold:true}],
+      spec:[['소재','울 70% · 캐시미어 30%'],['핏','오버핏 / 롱 기장'],['원산지','대한민국'],['세탁','드라이클리닝 권장']]
+    },
+    {
+      id:'dd02', name:'부클레 크롭 가디건', brand:'SAEBYEOK KNIT', cat:'knit', art:'cardigan', label:'KNIT',
+      price:35000, list:59000, rating:4.7, reviews:962, stock:18,
+      tags:['오늘출발','동대문직송'],
+      desc:'도톰한 부클레 조직으로 따뜻하게. 크롭 기장이라 하이웨이스트 팬츠와 매치하면 비율이 좋아 보입니다. 단추를 열어 아우터처럼 입어도 잘 어울립니다.',
+      colors:[{n:'아이보리',h:'#ece4d6'},{n:'버터',h:'#e3cf9e'},{n:'라이트그레이',h:'#c9c8c6'}],
+      sizes:[{n:'FREE',sold:false},{n:'L',sold:false}],
+      spec:[['소재','아크릴 62% · 폴리에스터 38%'],['핏','크롭 / 여유 있는 핏'],['원산지','대한민국'],['세탁','손세탁 권장']]
+    },
+    {
+      id:'dd03', name:'와이드 생지 데님 팬츠', brand:'DAWN DENIM', cat:'pants', art:'denim', label:'DENIM',
+      price:41000, list:69000, rating:4.9, reviews:2140, stock:9, best:true,
+      tags:['오늘출발','동대문직송'],
+      desc:'동대문 데님 상가의 스테디셀러. 생지 특유의 탄탄한 원단으로 실루엣이 무너지지 않습니다. 밑단을 살짝 접어 입으면 더 캐주얼한 분위기.',
+      colors:[{n:'미디엄블루',h:'#5b7ca6'},{n:'라이트블루',h:'#93aecd'},{n:'워시드블랙',h:'#4a4b52'}],
+      sizes:[{n:'26',sold:false},{n:'28',sold:false},{n:'30',sold:false},{n:'32',sold:false}],
+      spec:[['소재','면 100%'],['핏','와이드 / 풀 기장'],['원산지','대한민국'],['세탁','찬물 단독 세탁']]
+    },
+    {
+      id:'dd04', name:'울 혼방 셋업 자켓', brand:'ATELIER 12', cat:'set', art:'blazer', label:'SET-UP',
+      price:89000, list:139000, rating:4.8, reviews:611, stock:7,
+      tags:['동대문직송','오늘출발'],
+      desc:'셋업으로 입기 좋은 구조적인 자켓. 어깨 패드와 허리선 덕분에 단독으로 입어도 실루엣이 잡힙니다. 같은 원단의 스커트와 세트 구성이 가능합니다.',
+      colors:[{n:'블랙',h:'#26262b'},{n:'그레이',h:'#8e8d92'},{n:'카멜',h:'#b78e63'}],
+      sizes:[{n:'S',sold:false},{n:'M',sold:false},{n:'L',sold:true}],
+      spec:[['소재','울 52% · 폴리에스터 46% · 스판 2%'],['핏','슬림 크롭 자켓'],['원산지','대한민국'],['세탁','드라이클리닝']]
+    },
+    {
+      id:'dd05', name:'헤비 워시드 스웨트셔츠', brand:'NIGHT SHIFT', cat:'knit', art:'sweat', label:'KNIT',
+      price:33000, list:60000, rating:4.6, reviews:1588, stock:24, best:true,
+      tags:['오늘출발','무료배송'],
+      desc:'한겨울까지 입을 수 있는 헤비 웨이트 맨투맨. 워싱 가공으로 처음부터 편안한 촉감입니다. 어깨가 넉넉해 남녀공용으로 입기 좋습니다.',
+      colors:[{n:'멜란지그레이',h:'#a8a7a4'},{n:'블랙',h:'#26262a'},{n:'크림',h:'#e6ddcd'}],
+      sizes:[{n:'M',sold:false},{n:'L',sold:false},{n:'XL',sold:false}],
+      spec:[['소재','면 80% · 폴리에스터 20%'],['핏','오버핏 / 남녀공용'],['원산지','대한민국'],['세탁','뒤집어 세탁']]
+    },
+    {
+      id:'dd06', name:'하이웨이스트 투턱 슬랙스', brand:'DDM TAILOR', cat:'pants', art:'slacks', label:'PANTS',
+      price:32000, list:55000, rating:4.7, reviews:903, stock:21,
+      tags:['오늘출발','동대문직송'],
+      desc:'허리선이 높아 다리가 길어 보이는 슬랙스. 투턱 디테일로 엉덩이와 허벅지 라인을 자연스럽게 잡아줍니다. 사무실에서도 편하게.',
+      colors:[{n:'블랙',h:'#24252a'},{n:'차콜',h:'#44464c'},{n:'베이지',h:'#cdbfa8'}],
+      sizes:[{n:'S',sold:false},{n:'M',sold:false},{n:'L',sold:false}],
+      spec:[['소재','폴리에스터 78% · 레이온 18% · 스판 4%'],['핏','와이드 / 하이웨이스트'],['원산지','대한민국'],['세탁','드라이클리닝 권장']]
+    },
+    {
+      id:'dd07', name:'리브드 크롭 니트', brand:'SAEBYEOK KNIT', cat:'knit', art:'knit', label:'KNIT',
+      price:26000, list:45000, rating:4.5, reviews:742, stock:15,
+      tags:['오늘출발','동대문직송'],
+      desc:'골지 조직이 몸에 부드럽게 붙는 크롭 니트. 단독으로 입어도, 셔츠 위에 겹쳐 입어도 좋습니다. 네 가지 컬러로 준비했습니다.',
+      colors:[{n:'크림',h:'#ece2d2'},{n:'세이지',h:'#9aa892'},{n:'코코아',h:'#8b6f5e'}],
+      sizes:[{n:'FREE',sold:false}],
+      spec:[['소재','아크릴 55% · 나일론 30% · 울 15%'],['핏','크롭 / 슬림'],['원산지','대한민국'],['세탁','손세탁']]
+    },
+    {
+      id:'dd08', name:'벨티드 미디 원피스', brand:'ATELIER 12', cat:'set', art:'dress', label:'SET-UP',
+      price:54000, list:89000, rating:4.8, reviews:488, stock:11,
+      tags:['동대문직송','오늘출발'],
+      desc:'동대문 원피스 상가의 베스트 아이템. 허리 벨트로 실루엣을 잡고, A라인 스커트가 자연스럽게 떨어집니다. 하객룩으로도 좋습니다.',
+      colors:[{n:'블랙',h:'#23242a'},{n:'아이보리',h:'#e8ddca'},{n:'딥브라운',h:'#6a4f43'}],
+      sizes:[{n:'S',sold:false},{n:'M',sold:false},{n:'L',sold:false}],
+      spec:[['소재','폴리에스터 92% · 스판 8%'],['핏','미디 기장 / A라인'],['원산지','대한민국'],['세탁','드라이클리닝']]
+    },
+    {
+      id:'dd09', name:'싱글 트렌치 자켓', brand:'DDM ATELIER', cat:'outer', art:'trench', label:'OUTER',
+      price:72000, list:118000, rating:4.7, reviews:376, stock:8,
+      tags:['동대문직송','오늘출발'],
+      desc:'간절기에 매일 손이 가는 트렌치. 더블 버튼과 벨트로 클래식하게, 어깨는 과하지 않게 잡았습니다. 안감까지 마감된 상가 정품 라인입니다.',
+      colors:[{n:'베이지',h:'#cbb794'},{n:'카키',h:'#8b8468'},{n:'블랙',h:'#2a2a2c'}],
+      sizes:[{n:'S',sold:false},{n:'M',sold:false},{n:'L',sold:false}],
+      spec:[['소재','폴리에스터 65% · 면 35%'],['핏','레귤러 / 롱 기장'],['원산지','대한민국'],['세탁','드라이클리닝']]
+    },
+    {
+      id:'dd10', name:'플리츠 A라인 미디 스커트', brand:'ATELIER 12', cat:'set', art:'skirt', label:'SET-UP',
+      price:29000, list:49000, rating:4.6, reviews:534, stock:16,
+      tags:['오늘출발','동대문직송'],
+      desc:'주름이 자연스럽게 살아 있는 A라인 스커트. 허리 밴딩으로 편하고, 니트·셔츠 어디에나 잘 맞습니다. 셋업 자켓과 세트로 입어 보세요.',
+      colors:[{n:'그레이',h:'#9c9a97'},{n:'블랙',h:'#26262a'},{n:'버건디',h:'#6d3a3f'}],
+      sizes:[{n:'S',sold:false},{n:'M',sold:false},{n:'L',sold:false}],
+      spec:[['소재','폴리에스터 100%'],['핏','A라인 / 미디 기장'],['원산지','대한민국'],['세탁','드라이클리닝 권장']]
+    },
+    {
+      id:'dd11', name:'스트라이프 오버셔츠', brand:'NIGHT SHIFT', cat:'knit', art:'overshirt', label:'KNIT',
+      price:34000, list:58000, rating:4.5, reviews:428, stock:19,
+      tags:['동대문직송','오늘출발'],
+      desc:'셔츠처럼, 아우터처럼. 도톰한 원단의 오버핏 오버셔츠로 티셔츠 위에 걸치기 좋습니다. 스트라이프 배색이 포인트입니다.',
+      colors:[{n:'블루스트라이프',h:'#7d93b0'},{n:'브라운스트라이프',h:'#a08a72'},{n:'모노',h:'#b6b6b6'}],
+      sizes:[{n:'M',sold:false},{n:'L',sold:false},{n:'XL',sold:false}],
+      spec:[['소재','면 70% · 폴리에스터 30%'],['핏','오버핏 / 남녀공용'],['원산지','대한민국'],['세탁','찬물 세탁']]
+    },
+    {
+      id:'dd12', name:'코듀로이 와이드 팬츠', brand:'DAWN DENIM', cat:'pants', art:'corduroy', label:'PANTS',
+      price:38000, list:65000, rating:4.7, reviews:687, stock:13,
+      tags:['오늘출발','동대문직송'],
+      desc:'골이 살아 있는 코듀로이 원단으로 겨울 분위기를. 와이드 핏이라 체형 부담 없이 입을 수 있습니다. 힙 포켓 라인까지 깔끔하게 잡았습니다.',
+      colors:[{n:'카멜',h:'#b98a5c'},{n:'올리브',h:'#767c50'},{n:'블랙',h:'#2b2b2e'}],
+      sizes:[{n:'S',sold:false},{n:'M',sold:false},{n:'L',sold:false},{n:'XL',sold:false}],
+      spec:[['소재','면 98% · 스판 2%'],['핏','와이드 / 풀 기장'],['원산지','대한민국'],['세탁','뒤집어 세탁']]
+    }
+  ];
+
+  PRODUCTS.forEach(function(p){ p.bg = BG[p.cat]; });
+
+  var FREE_SHIP = 50000;
+  var SHIP_FEE = 3000;
+
+  /* ---------------- state ---------------- */
+  var state = {
+    cart: [],
+    filter: 'all',
+    query: '',
+    sort: 'pick',
+    wish: {},
+    detail: { id: null, color: 0, size: null, qty: 1 }
+  };
+
+  var HEART_LINE = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20s-7-4.6-9.2-9A5.1 5.1 0 0 1 12 6.4 5.1 5.1 0 0 1 21.2 11C19 15.4 12 20 12 20Z"/></svg>';
+  var HEART_FILL = '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 20s-7-4.6-9.2-9A5.1 5.1 0 0 1 12 6.4 5.1 5.1 0 0 1 21.2 11C19 15.4 12 20 12 20Z"/></svg>';
+  var CART_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>';
+  var MINUS_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"/></svg>';
+  var PLUS_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+  var TRASH_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V5h6v2"/><path d="M6 7l1 13h10l1-13"/></svg>';
+
+  function findProduct(id){
+    for (var i = 0; i < PRODUCTS.length; i++){ if (PRODUCTS[i].id === id) return PRODUCTS[i]; }
+    return null;
+  }
+  function offRate(p){ return Math.round((1 - p.price / p.list) * 100); }
+
+  /* ---------------- render: tabs / grid ---------------- */
+  function renderTabs(){
+    var tabs = $('#tabs');
+    tabs.innerHTML = CATS.map(function(c){
+      return '<button role="tab" data-cat="' + c.id + '" aria-selected="' + (state.filter === c.id ? 'true' : 'false') + '">' + c.name + '</button>';
+    }).join('');
+  }
+
+  function visibleProducts(){
+    var q = state.query.trim().toLowerCase();
+    var list = PRODUCTS.filter(function(p){
+      var catOk = state.filter === 'all' || state.filter === 'deal' || p.cat === state.filter;
+      var qOk = !q || p.name.toLowerCase().indexOf(q) > -1 || p.brand.toLowerCase().indexOf(q) > -1 || p.desc.toLowerCase().indexOf(q) > -1;
+      return catOk && qOk;
+    });
+    var sorted = list.slice();
+    if (state.sort === 'low') sorted.sort(function(a,b){ return a.price - b.price; });
+    else if (state.sort === 'high') sorted.sort(function(a,b){ return b.price - a.price; });
+    else if (state.sort === 'disc') sorted.sort(function(a,b){ return offRate(b) - offRate(a); });
+    else if (state.sort === 'review') sorted.sort(function(a,b){ return b.reviews - a.reviews; });
+    else sorted.sort(function(a,b){ return (b.best ? 1 : 0) - (a.best ? 1 : 0); });
+    return sorted;
+  }
+
+  function cardHtml(p){
+    var off = offRate(p);
+    var wished = !!state.wish[p.id];
+    var meta = '<div class="p-meta"><span class="star">★</span><b style="color:#4a4842">' + p.rating.toFixed(1) + '</b>' +
+      '<span class="sep">·</span><span>리뷰 ' + won(p.reviews) + '</span>' +
+      (p.stock <= 15 ? '<span class="sep">·</span><span class="fire">잔여 ' + p.stock + '개</span>' : '') + '</div>';
+    return '<article class="card" data-id="' + p.id + '" tabindex="0" role="button" aria-label="' + p.name + ' 상세 보기">' +
+      '<div class="card-media">' +
+        art(p, p.colors[0].h) +
+        '<span class="disc' + (off >= 45 ? ' hot' : '') + '">' + off + '% OFF</span>' +
+        '<button class="wish' + (wished ? ' on' : '') + '" data-wish="' + p.id + '" aria-label="' + p.name + ' 찜하기" aria-pressed="' + (wished ? 'true' : 'false') + '">' + (wished ? HEART_FILL : HEART_LINE) + '</button>' +
+        '<div class="chips">' + p.tags.map(function(t){ return '<span class="chip">' + t + '</span>'; }).join('') + '</div>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<div class="p-brand">' + p.brand + '</div>' +
+        '<h3 class="p-name">' + p.name + '</h3>' +
+        '<div class="price-row"><span class="pct">' + off + '%</span><span class="price">' + won(p.price) + '원</span><span class="list">' + won(p.list) + '원</span></div>' +
+        meta +
+      '</div>' +
+    '</article>';
+  }
+
+  function renderGrid(){
+    var list = visibleProducts();
+    $('#grid').innerHTML = list.map(cardHtml).join('');
+    $('#empty').hidden = list.length > 0;
+    $('#grid').hidden = list.length === 0;
+    $('#resultCount').innerHTML = '<b>' + list.length + '</b>개 상품';
+    $$('#tabs button').forEach(function(b){
+      b.setAttribute('aria-selected', b.getAttribute('data-cat') === state.filter ? 'true' : 'false');
+    });
+  }
+
+  /* ---------------- cart ---------------- */
+  function cartTotals(){
+    var listSum = 0, saleSum = 0, count = 0;
+    state.cart.forEach(function(it){
+      var p = findProduct(it.id);
+      if (!p) return;
+      listSum += p.list * it.qty;
+      saleSum += p.price * it.qty;
+      count += it.qty;
+    });
+    var ship = (state.cart.length === 0 || saleSum >= FREE_SHIP) ? 0 : SHIP_FEE;
+    return { listSum: listSum, saleSum: saleSum, discount: listSum - saleSum, ship: ship, total: saleSum + ship, count: count };
+  }
+
+  function cartBadge(){
+    var t = cartTotals();
+    var badge = $('#cartBadge');
+    if (t.count > 0){
+      badge.hidden = false;
+      badge.textContent = t.count > 99 ? '99+' : String(t.count);
+      badge.classList.remove('bump');
+      void badge.offsetWidth;
+      badge.classList.add('bump');
+    } else {
+      badge.hidden = true;
+      badge.textContent = '0';
+    }
+    $('#cartCount').textContent = t.count;
+    var mCart = $('#mCart');
+    if (t.count > 0){
+      mCart.classList.add('show');
+      $('#mCartTitle').textContent = '장바구니 ' + t.count + '개';
+      $('#mCartSub').textContent = '결제예정 ' + won(t.total) + '원';
+      $('#mCartGo').textContent = '보기';
+    } else {
+      mCart.classList.remove('show');
+    }
+  }
+
+  function renderCart(){
+    var body = $('#cartBody');
+    var foot = $('#cartFoot');
+    var t = cartTotals();
+
+    if (state.cart.length === 0){
+      body.innerHTML = '<div class="cart-empty">' +
+        '<div class="ic">' + CART_ICON + '</div>' +
+        '<b>장바구니가 비어 있어요</b>' +
+        '<span>오늘의 특가 상품을 담아보세요. 5만원 이상 구매 시 무료배송입니다.</span>' +
+      '</div>';
+      foot.innerHTML = '<div class="sum-total"><span>결제예정금액</span><b>0원</b></div>' +
+        '<button class="btn-block" disabled>주문하기</button>' +
+        '<p class="fine-print">테스트용 프로토타입이며 실제 결제가 이루어지지 않습니다.</p>';
+      cartBadge();
+      return;
+    }
+
+    body.innerHTML = state.cart.map(function(it){
+      var p = findProduct(it.id);
+      var color = p.colors[it.color];
+      return '<div class="cart-item" data-key="' + it.key + '">' +
+        '<div class="cart-thumb">' + art(p, color.h) + '</div>' +
+        '<div class="cart-info">' +
+          '<div class="ci-brand">' + p.brand + '</div>' +
+          '<div class="ci-name">' + p.name + '</div>' +
+          '<div class="ci-opt"><span class="dotc" style="background:' + color.h + '"></span>' + color.n + '<span style="color:#cdc8bd">/</span>' + it.size + '</div>' +
+          '<div class="ci-bottom">' +
+            '<span class="ci-price">' + won(p.price * it.qty) + '원</span>' +
+            '<div style="display:flex;align-items:center;gap:4px">' +
+              '<div class="stepper">' +
+                '<button data-cart-step="-1" aria-label="수량 줄이기">' + MINUS_ICON + '</button>' +
+                '<span>' + it.qty + '</span>' +
+                '<button data-cart-step="1" aria-label="수량 늘리기">' + PLUS_ICON + '</button>' +
+              '</div>' +
+              '<button class="ci-del" data-cart-del aria-label="삭제">' + TRASH_ICON + '</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    var hint = '';
+    if (t.saleSum < FREE_SHIP){
+      var remain = FREE_SHIP - t.saleSum;
+      var pct = Math.max(6, Math.min(100, Math.round(t.saleSum / FREE_SHIP * 100)));
+      hint = '<div class="ship-hint"><span class="bar"><i style="width:' + pct + '%"></i></span><span>' + won(remain) + '원 더 담으면 무료배송</span></div>';
+    } else {
+      hint = '<div class="ship-hint"><span class="bar"><i style="width:100%"></i></span><span style="color:#2b2a25;font-weight:700">무료배송 적용</span></div>';
+    }
+
+    foot.innerHTML =
+      '<div class="sum">' +
+        '<div class="sum-row"><span>상품금액</span><b>' + won(t.listSum) + '원</b></div>' +
+        '<div class="sum-row"><span>할인금액</span><b class="minus">-' + won(t.discount) + '원</b></div>' +
+        '<div class="sum-row"><span>배송비</span><b>' + (t.ship === 0 ? '무료' : won(t.ship) + '원') + '</b></div>' +
+      '</div>' +
+      hint +
+      '<div class="sum-total"><span>결제예정금액</span><b>' + won(t.total) + '원</b></div>' +
+      '<button class="btn-block" id="checkoutBtn">주문하기 <span style="font-weight:600;font-size:12px;opacity:.7">(' + t.count + '개)</span></button>' +
+      '<p class="fine-print">테스트용 프로토타입이며 실제 결제가 이루어지지 않습니다.</p>';
+
+    cartBadge();
+  }
+
+  function addToCart(){
+    var d = state.detail;
+    var p = findProduct(d.id);
+    if (!p) return;
+    if (d.size === null){
+      toast('사이즈를 선택해 주세요');
+      var opt = $('#sizeOpt');
+      if (opt){
+        opt.classList.add('need');
+        setTimeout(function(){ opt.classList.remove('need'); }, 500);
+      }
+      return;
+    }
+    var key = p.id + '|' + d.color + '|' + d.size;
+    var found = null;
+    for (var i = 0; i < state.cart.length; i++){ if (state.cart[i].key === key) found = state.cart[i]; }
+    if (found){
+      found.qty = Math.min(10, found.qty + d.qty);
+    } else {
+      state.cart.unshift({ key: key, id: p.id, color: d.color, size: d.size, qty: d.qty });
+    }
+    renderCart();
+    toast(p.name + ' · ' + p.colors[d.color].n + ' / ' + d.size + ' 담았어요');
+    closeDetail();
+    openCart();
+  }
+
+  /* ---------------- detail ---------------- */
+  function openDetail(id){
+    var p = findProduct(id);
+    if (!p) return;
+    state.detail = { id: id, color: 0, size: null, qty: 1 };
+    renderDetail();
+    var modal = $('#detailModal');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('locked');
+    var info = $('#detailInfo');
+    if (info) info.scrollTop = 0;
+  }
+
+  function renderDetail(){
+    var p = findProduct(state.detail.id);
+    if (!p) return;
+    var d = state.detail;
+    var off = offRate(p);
+    var color = p.colors[d.color];
+    var wished = !!state.wish[p.id];
+
+    var media = $('#detailMedia');
+    media.innerHTML = art(p, color.h) + '<div class="media-note">연출 컷 · 실제 색상과 다를 수 있어요</div>';
+
+    var stockPct = Math.max(8, Math.min(100, Math.round(p.stock / 40 * 100)));
+
+    var html = '' +
+      '<div class="d-brand">' + p.brand + '<span class="tagline">동대문 도매 · 당일 출고</span></div>' +
+      '<h2 class="d-name" id="detailTitle">' + p.name + '</h2>' +
+      '<div class="d-rate"><span class="stars">★★★★★</span><b>' + p.rating.toFixed(1) + '</b><span class="sep">|</span><span>리뷰 ' + won(p.reviews) + '</span><span class="sep">|</span><span>오늘 주문 ' + (p.reviews % 37 + 12) + '건</span></div>' +
+      '<div class="d-price"><span class="d-off">' + off + '%</span><span class="d-now">' + won(p.price) + '<small>원</small></span><span class="d-list">' + won(p.list) + '원</span></div>' +
+      '<div class="d-deal">타임특가 · 오늘 자정 마감</div>' +
+      '<p class="d-desc">' + p.desc + '</p>' +
+
+      '<div class="opt">' +
+        '<div class="opt-head"><span>색상</span><b>' + color.n + '</b></div>' +
+        '<div class="swatches">' +
+          p.colors.map(function(c, i){
+            return '<button class="swatch" data-color="' + i + '" aria-pressed="' + (i === d.color ? 'true' : 'false') + '" aria-label="' + c.n + '" title="' + c.n + '"><i style="background:' + c.h + '"></i></button>';
+          }).join('') +
+        '</div>' +
+      '</div>' +
+
+      '<div class="opt" id="sizeOpt">' +
+        '<div class="opt-head"><span>사이즈</span><button class="link" data-act="sizeguide">사이즈 안내</button></div>' +
+        '<div class="sizes">' +
+          p.sizes.map(function(s){
+            var pressed = d.size === s.n;
+            return '<button class="size-btn' + (s.sold ? ' sold' : '') + (pressed ? ' pressed' : '') + '" data-size="' + s.n + '"' + (s.sold ? ' disabled' : '') + ' aria-pressed="' + (pressed ? 'true' : 'false') + '">' + s.n + (s.sold ? ' 품절' : '') + '</button>';
+          }).join('') +
+        '</div>' +
+      '</div>' +
+
+      '<div class="opt">' +
+        '<div class="opt-head"><span>수량</span></div>' +
+        '<div class="qty-stepper">' +
+          '<button data-qty="-1" aria-label="수량 줄이기"' + (d.qty <= 1 ? ' disabled' : '') + '>' + MINUS_ICON + '</button>' +
+          '<span>' + d.qty + '</span>' +
+          '<button data-qty="1" aria-label="수량 늘리기"' + (d.qty >= 10 ? ' disabled' : '') + '>' + PLUS_ICON + '</button>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="d-stock"><span class="bar"><i style="width:' + stockPct + '%"></i></span><span>오늘 특가 잔여 <b>' + p.stock + '개</b></span></div>' +
+
+      '<div class="d-total"><span>총 상품금액</span><b>' + won(p.price * d.qty) + '원</b></div>' +
+      '<div class="d-actions">' +
+        '<button class="wish-lg' + (wished ? ' on' : '') + '" data-act="wish" aria-label="찜하기" aria-pressed="' + (wished ? 'true' : 'false') + '">' + (wished ? HEART_FILL : HEART_LINE) + '</button>' +
+        '<button class="add-btn" data-act="add">' +
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>' +
+          '장바구니 담기' +
+        '</button>' +
+      '</div>' +
+
+      '<ul class="d-spec">' +
+        p.spec.map(function(row){ return '<li><span>' + row[0] + '</span><b>' + row[1] + '</b></li>'; }).join('') +
+        '<li><span>배송</span><b>동대문 직송 · 평균 1~2일 (오늘출발)</b></li>' +
+        '<li><span>교환/반품</span><b>수령 후 7일 이내</b></li>' +
+      '</ul>' +
+      '<p class="d-note">테스트용 프로토타입입니다. 결제·배송이 실제로 진행되지 않으며 표시된 가격과 재고는 예시 값입니다.</p>';
+
+    var info = $('#detailInfo');
+    var keepScroll = info.scrollTop;
+    info.innerHTML = html;
+    if (info.scrollTop !== keepScroll) info.scrollTop = keepScroll;
+  }
+
+  function closeDetail(){
+    var modal = $('#detailModal');
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    if (!$('#cartDrawer').classList.contains('open') && !$('#orderModal').classList.contains('open')){
+      document.body.classList.remove('locked');
+    }
+  }
+
+  /* ---------------- drawer ---------------- */
+  var lastFocus = null;
+  function openCart(){
+    lastFocus = document.activeElement;
+    $('#cartDrawer').classList.add('open');
+    $('#cartDrawer').setAttribute('aria-hidden', 'false');
+    $('#scrim').classList.add('on');
+    document.body.classList.add('locked');
+  }
+  function closeCart(){
+    $('#cartDrawer').classList.remove('open');
+    $('#cartDrawer').setAttribute('aria-hidden', 'true');
+    $('#scrim').classList.remove('on');
+    if (!$('#detailModal').classList.contains('open') && !$('#orderModal').classList.contains('open')){
+      document.body.classList.remove('locked');
+    }
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  /* ---------------- order ---------------- */
+  function checkout(){
+    if (state.cart.length === 0){ toast('장바구니가 비어 있어요'); return; }
+    var t = cartTotals();
+    var lines = state.cart.map(function(it){
+      var p = findProduct(it.id);
+      return p.name + ' (' + p.colors[it.color].n + ' / ' + it.size + ') × ' + it.qty;
+    });
+    var now = new Date();
+    var ymd = String(now.getFullYear()) + String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0');
+    var orderNo = 'DDM-' + ymd + '-' + String(Math.floor(Math.random() * 9000) + 1000);
+
+    $('#orderBox').innerHTML =
+      '<div class="row"><span>주문번호</span><b>' + orderNo + '</b></div>' +
+      '<div class="row"><span>주문 상품</span><b>' + t.count + '개 / ' + state.cart.length + '종</b></div>' +
+      '<div class="row"><span>상품금액</span><b>' + won(t.saleSum) + '원</b></div>' +
+      '<div class="row"><span>할인금액</span><b>-' + won(t.discount) + '원</b></div>' +
+      '<div class="row"><span>배송비</span><b>' + (t.ship === 0 ? '무료' : won(t.ship) + '원') + '</b></div>' +
+      '<div class="row total"><span>결제예정금액</span><b>' + won(t.total) + '원</b></div>' +
+      '<div class="row" style="color:#a9a49a;font-size:11px;padding-top:8px;display:block;line-height:1.6">' + lines.join('<br>') + '</div>';
+
+    state.cart = [];
+    renderCart();
+    closeCart();
+    var modal = $('#orderModal');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('locked');
+  }
+
+  function closeOrder(){
+    $('#orderModal').classList.remove('open');
+    $('#orderModal').setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('locked');
+  }
+
+  /* ---------------- toast ---------------- */
+  var toastTimer = null;
+  function toast(msg){
+    var el = $('#toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+  }
+
+  /* ---------------- countdown ---------------- */
+  var lastDay = -1;
+  function tick(){
+    var now = new Date();
+    var end = new Date(now.getTime());
+    end.setHours(24, 0, 0, 0);
+    var diff = Math.max(0, Math.floor((end.getTime() - now.getTime()) / 1000));
+    var h = Math.floor(diff / 3600);
+    var m = Math.floor((diff % 3600) / 60);
+    var s = diff % 60;
+    $('#tH').textContent = String(h).padStart(2, '0');
+    $('#tM').textContent = String(m).padStart(2, '0');
+    $('#tS').textContent = String(s).padStart(2, '0');
+    if (now.getDate() !== lastDay){
+      lastDay = now.getDate();
+      var pm = $('#promoTimer');
+      if (pm) pm.textContent = '오늘 ' + (now.getMonth() + 1) + '/' + now.getDate() + ' 자정 마감';
+    }
+  }
+
+  /* ---------------- wire up ---------------- */
+  function setFilter(cat){
+    state.filter = cat;
+    renderGrid();
+    var cat0 = $('#catalog');
+    if (cat0){
+      var y = cat0.getBoundingClientRect().top + window.pageYOffset - 70;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }
+
+  function init(){
+    $('#heroVisual').insertAdjacentHTML('afterbegin', heroSvg());
+    renderTabs();
+    renderGrid();
+    renderCart();
+    tick();
+    setInterval(tick, 1000);
+
+    $('#grid').addEventListener('click', function(e){
+      var wishBtn = e.target.closest ? e.target.closest('[data-wish]') : null;
+      if (wishBtn){
+        e.stopPropagation();
+        toggleWish(wishBtn.getAttribute('data-wish'));
+        return;
+      }
+      var card = e.target.closest ? e.target.closest('.card') : null;
+      if (card) openDetail(card.getAttribute('data-id'));
+    });
+    $('#grid').addEventListener('keydown', function(e){
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var card = e.target.closest ? e.target.closest('.card') : null;
+      if (card && e.target === card){ e.preventDefault(); openDetail(card.getAttribute('data-id')); }
+    });
+
+    $('#tabs').addEventListener('click', function(e){
+      var b = e.target.closest ? e.target.closest('[data-cat]') : null;
+      if (b) { state.filter = b.getAttribute('data-cat'); renderGrid(); }
+    });
+
+    $('#sortSelect').addEventListener('change', function(e){
+      state.sort = e.target.value;
+      renderGrid();
+    });
+
+    var searchInput = $('#searchInput');
+    searchInput.addEventListener('input', function(){
+      state.query = searchInput.value;
+      $('#searchWrap').classList.toggle('has-value', searchInput.value.length > 0);
+      renderGrid();
+    });
+    $('#searchClear').addEventListener('click', function(){
+      searchInput.value = '';
+      state.query = '';
+      $('#searchWrap').classList.remove('has-value');
+      renderGrid();
+      searchInput.focus();
+    });
+    $('#searchBtn').addEventListener('click', function(){
+      state.filter = 'all';
+      renderTabs();
+      renderGrid();
+      $('#catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(function(){ searchInput.focus({ preventScroll: true }); }, 400);
+    });
+
+    $('#resetBtn').addEventListener('click', function(){
+      state.filter = 'all';
+      state.query = '';
+      searchInput.value = '';
+      $('#searchWrap').classList.remove('has-value');
+      $('#sortSelect').value = 'pick';
+      state.sort = 'pick';
+      renderTabs();
+      renderGrid();
+    });
+
+    $$('[data-nav]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var v = b.getAttribute('data-nav');
+        if (v === 'deal'){ state.filter = 'all'; state.sort = 'disc'; $('#sortSelect').value = 'disc'; renderGrid(); }
+        else { state.filter = v; renderGrid(); }
+        setFilter(state.filter);
+      });
+    });
+
+    $('#wishBtn').addEventListener('click', function(){
+      var n = Object.keys(state.wish).filter(function(k){ return state.wish[k]; }).length;
+      toast(n > 0 ? '찜한 상품 ' + n + '개 · 프로토타입에서는 저장되지 않습니다' : '찜한 상품이 없습니다');
+    });
+
+    $('#cartBtn').addEventListener('click', openCart);
+    $('#mCartGo').addEventListener('click', openCart);
+    $('#mCart').addEventListener('click', function(e){
+      if (e.target.closest && e.target.closest('#mCartGo')) return;
+      openCart();
+    });
+    $('#scrim').addEventListener('click', closeCart);
+    $$('[data-close-cart]').forEach(function(b){ b.addEventListener('click', closeCart); });
+
+    $('#heroCta').addEventListener('click', function(){
+      var y = $('#catalog').getBoundingClientRect().top + window.pageYOffset - 70;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+    $('#logoLink').addEventListener('click', function(e){
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    $('#cartBody').addEventListener('click', function(e){
+      var stepBtn = e.target.closest ? e.target.closest('[data-cart-step]') : null;
+      var delBtn = e.target.closest ? e.target.closest('[data-cart-del]') : null;
+      var row = e.target.closest ? e.target.closest('.cart-item') : null;
+      if (!row) return;
+      var key = row.getAttribute('data-key');
+      var idx = -1;
+      for (var i = 0; i < state.cart.length; i++){ if (state.cart[i].key === key) idx = i; }
+      if (idx < 0) return;
+      if (stepBtn){
+        var delta = parseInt(stepBtn.getAttribute('data-cart-step'), 10);
+        var q = state.cart[idx].qty + delta;
+        if (q < 1){ return; }
+        state.cart[idx].qty = Math.min(10, q);
+        renderCart();
+      } else if (delBtn){
+        var nm = findProduct(state.cart[idx].id).name;
+        state.cart.splice(idx, 1);
+        renderCart();
+        toast(nm + ' 삭제했어요');
+      }
+    });
+
+    $('#cartFoot').addEventListener('click', function(e){
+      if (e.target.closest && e.target.closest('#checkoutBtn')) checkout();
+    });
+
+    $$('[data-close-detail]').forEach(function(b){ b.addEventListener('click', closeDetail); });
+    $$('[data-close-order]').forEach(function(b){ b.addEventListener('click', closeOrder); });
+
+    $('#detailInfo').addEventListener('click', function(e){
+      var t = e.target;
+      var sw = t.closest ? t.closest('[data-color]') : null;
+      var sz = t.closest ? t.closest('[data-size]') : null;
+      var qb = t.closest ? t.closest('[data-qty]') : null;
+      var act = t.closest ? t.closest('[data-act]') : null;
+
+      if (sw){
+        state.detail.color = parseInt(sw.getAttribute('data-color'), 10);
+        renderDetail();
+        return;
+      }
+      if (sz){
+        if (sz.disabled) return;
+        state.detail.size = sz.getAttribute('data-size');
+        renderDetail();
+        return;
+      }
+      if (qb){
+        var d = parseInt(qb.getAttribute('data-qty'), 10);
+        var q = state.detail.qty + d;
+        if (q < 1 || q > 10) return;
+        state.detail.qty = q;
+        renderDetail();
+        return;
+      }
+      if (act){
+        var a = act.getAttribute('data-act');
+        if (a === 'add'){ addToCart(); }
+        else if (a === 'wish'){ toggleWish(state.detail.id); renderDetail(); }
+        else if (a === 'sizeguide'){ toast('사이즈 실측표는 상담 후 제공 예정입니다'); }
+      }
+    });
+
+    document.addEventListener('keydown', function(e){
+      if (e.key !== 'Escape') return;
+      if ($('#orderModal').classList.contains('open')) { closeOrder(); return; }
+      if ($('#detailModal').classList.contains('open')) { closeDetail(); return; }
+      if ($('#cartDrawer').classList.contains('open')) { closeCart(); }
+    });
+
+    $$('[data-foot]').forEach(function(b){
+      b.addEventListener('click', function(){ toast('프로토타입에서는 준비 중인 메뉴입니다'); });
+    });
+  }
+
+  function toggleWish(id){
+    state.wish[id] = !state.wish[id];
+    var on = !!state.wish[id];
+    var p = findProduct(id);
+    // sync card button
+    var cards = $$('.card[data-id="' + id + '"]');
+    cards.forEach(function(card){
+      var b = card.querySelector('[data-wish]');
+      if (!b) return;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.innerHTML = on ? HEART_FILL : HEART_LINE;
+    });
+    toast(on ? (p ? p.name : '상품') + ' 찜했어요' : '찜을 해제했어요');
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
