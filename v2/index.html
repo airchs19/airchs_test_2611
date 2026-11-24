@@ -102,7 +102,7 @@
   .hero{position:relative;height:min(62vh,540px);min-height:420px;overflow:hidden;background:#0d1626}
   .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%}
   .hero-veil{position:absolute;inset:0;background:
-    radial-gradient(58% 78% at 50% 50%,rgba(8,14,26,.62),rgba(8,14,26,.14) 70%,rgba(8,14,26,.3) 100%),
+    radial-gradient(52% 74% at 50% 50%,rgba(8,14,26,.72),rgba(8,14,26,.2) 72%,rgba(8,14,26,.34) 100%),
     linear-gradient(to bottom,rgba(8,14,26,.28),rgba(8,14,26,0) 40%,rgba(8,14,26,.42))}
   .hero-copy{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 24px}
   .hero-eyebrow{font-size:10.5px;letter-spacing:.4em;font-weight:500;color:rgba(255,255,255,.82);text-indent:.4em}
@@ -160,6 +160,7 @@
   .heart:hover{transform:scale(1.08);color:#111}
   .heart svg{width:16px;height:16px}
   .heart.on{color:var(--accent)}
+  .heart.on svg{fill:currentColor}
   .hoverbar{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;gap:1px;transform:translateY(100%);transition:transform .22s ease}
   .card:hover .hoverbar,.card:focus-within .hoverbar{transform:translateY(0)}
   .hoverbar button{flex:1;height:38px;background:rgba(17,17,17,.92);color:#fff;font-size:11.5px;font-weight:600;letter-spacing:.02em}
@@ -172,12 +173,12 @@
   .p-rate{font-size:11px;color:#999;display:flex;align-items:center;gap:4px}
   .p-rate .star{color:#111}
   .p-rate b{color:#666;font-weight:500}
-  .p-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;margin-top:4px}
-  .p-price .old{font-size:11.5px;color:#b0b0b0;text-decoration:line-through}
+  .p-price{display:flex;align-items:baseline;gap:6px;margin-top:5px}
   .p-price .now{font-size:15.5px;font-weight:700;letter-spacing:-.02em;color:#111}
-  .p-price .now em{font-style:normal;font-size:11px;font-weight:400;margin-left:1px}
   .p-price .pct{font-size:13px;font-weight:800;color:var(--accent);letter-spacing:-.02em}
-  .p-price .maxdeal{font-size:9.5px;color:var(--accent-deep);background:var(--accent-soft);border:1px solid #ffd9c9;padding:2px 5px;line-height:1.2;border-radius:2px;font-weight:600}
+  .p-under{display:flex;align-items:center;gap:5px;margin-top:1px;min-height:16px}
+  .p-under .old{font-size:11px;color:#b4b4b4;text-decoration:line-through}
+  .p-under .maxdeal{font-size:9px;color:var(--accent-deep);background:var(--accent-soft);border:1px solid #ffddcd;padding:1px 4px;line-height:1.35;border-radius:2px;font-weight:600;letter-spacing:-.01em}
   .p-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
   .p-tags button{font-size:10.5px;color:#777;background:#f4f4f4;border-radius:2px;padding:3px 6px;line-height:1.3;transition:background .15s,color .15s}
   .p-tags button:hover{background:#eaeaea;color:#222}
@@ -244,8 +245,8 @@
   /* ---------- drawer (cart) ---------- */
   .scrim{position:fixed;inset:0;background:rgba(10,10,10,.42);opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s;z-index:80}
   .scrim.on{opacity:1;visibility:visible}
-  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:#fff;z-index:90;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s cubic-bezier(.3,.7,.2,1);box-shadow:-20px 0 60px -30px rgba(0,0,0,.4)}
-  .drawer.on{transform:translateX(0)}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:#fff;z-index:90;display:flex;flex-direction:column;transform:translateX(100%);visibility:hidden;transition:transform .28s cubic-bezier(.3,.7,.2,1),visibility 0s .3s;box-shadow:-20px 0 60px -30px rgba(0,0,0,.4)}
+  .drawer.on{transform:translateX(0);visibility:visible;transition:transform .28s cubic-bezier(.3,.7,.2,1),visibility 0s 0s}
   .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}
   .drawer-head h2{font-size:16px;font-weight:800;letter-spacing:-.03em}
   .drawer-head h2 em{font-style:normal;color:var(--accent);font-size:13px;margin-left:4px}
@@ -276,6 +277,7 @@
   .cempty button:hover{background:#111;color:#fff}
   .drawer-foot{border-top:1px solid var(--line);padding:16px 22px 20px;background:#fff}
   .sumrow{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#777;margin-bottom:7px}
+  .sumrow[hidden]{display:none}
   .sumrow.disc{color:var(--accent-deep)}
   .sumrow.total{margin:14px 0 14px;padding-top:13px;border-top:1px solid var(--line);font-size:13px;color:#111;font-weight:700}
   .sumrow.total b{font-size:18px;letter-spacing:-.03em}
@@ -314,7 +316,7 @@
   .sz{min-width:48px;height:34px;padding:0 12px;border:1px solid var(--line-2);font-size:11.5px;color:#444;position:relative}
   .sz:hover{border-color:#999}
   .sz.on{border-color:#111;background:#111;color:#fff;font-weight:600}
-  .sz:disabled{color:#cfcfcf;border-color:#eee;cursor:default;background:repeating-linear-gradient(-45deg,#fafafa,#fafafa 4px,#f2f2f2 4px,#f2f2f2 8px)}
+  .sz:disabled{color:#c6c6c6;border-color:#f0f0f0;cursor:default;background:#fafafa;text-decoration:line-through;text-decoration-thickness:1px}
   .opt-total{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:16px;padding-top:14px}
   .opt-total span{font-size:11.5px;color:#777}
   .opt-total b{font-size:17px;font-weight:800;letter-spacing:-.03em}
@@ -328,8 +330,8 @@
   .opt-warn{font-size:11px;color:var(--accent-deep);margin-top:8px;min-height:0}
 
   /* ---------- search panel ---------- */
-  .searchpanel{position:fixed;top:0;left:0;right:0;z-index:100;background:#fff;transform:translateY(-102%);transition:transform .26s cubic-bezier(.3,.7,.2,1);box-shadow:0 30px 60px -40px rgba(0,0,0,.4)}
-  .searchpanel.on{transform:translateY(0)}
+  .searchpanel{position:fixed;top:0;left:0;right:0;z-index:100;background:#fff;transform:translateY(-102%);visibility:hidden;transition:transform .26s cubic-bezier(.3,.7,.2,1),visibility 0s .28s;box-shadow:0 30px 60px -40px rgba(0,0,0,.4)}
+  .searchpanel.on{transform:translateY(0);visibility:visible;transition:transform .26s cubic-bezier(.3,.7,.2,1),visibility 0s 0s}
   .searchpanel .sp-inner{width:min(760px,100% - 40px);margin:0 auto;padding:22px 0 26px}
   .sp-top{display:flex;align-items:center;gap:12px;border-bottom:2px solid #111;padding-bottom:12px}
   .sp-top svg{width:20px;height:20px;color:#111;flex:none}
@@ -941,7 +943,7 @@
 
   /* ---------------- card rendering ---------------- */
   function heartSVG(){
-    return '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg>';
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg>';
   }
 
   function card(p, rank, isNew){
@@ -952,7 +954,7 @@
           (rank ? '<span class="rank' + (rank === 1 ? ' top' : '') + '">' + rank + '위</span>' : '') +
           (isNew ? '<span class="newbadge">NEW</span>' : '') +
           '<button class="heart' + (wished ? ' on' : '') + '" type="button" data-wish="' + p.id + '" aria-label="' + esc(p.name) + ' 찜하기" aria-pressed="' + wished + '">' + heartSVG() + '</button>' +
-          '<img src="' + p.img + '" alt="' + esc(p.name) + '" loading="lazy">' +
+          '<img src="' + p.img + '" alt="' + esc(p.name) + '" loading="lazy" data-opt="' + p.id + '" style="cursor:pointer">' +
           '<div class="hoverbar">' +
             '<button type="button" data-opt="' + p.id + '">옵션 선택</button>' +
             '<button type="button" class="ghost" data-quick="' + p.id + '" aria-label="장바구니에 담기" title="장바구니 담기">' +
@@ -968,9 +970,8 @@
           '<div class="p-price">' +
             '<span class="pct">' + pct(p) + '%</span>' +
             '<span class="now">' + won(p.price) + '</span>' +
-            '<span class="old">' + won(p.list) + '</span>' +
-            '<span class="maxdeal">최대할인가</span>' +
           '</div>' +
+          '<p class="p-under"><span class="old">' + won(p.list) + '</span><span class="maxdeal">최대할인가</span></p>' +
           '<div class="p-tags">' + p.tags.map(function(t){ return '<button type="button" data-tag="' + esc(t) + '">#' + esc(t) + '</button>'; }).join('') + '</div>' +
         '</div>' +
       '</article>';
