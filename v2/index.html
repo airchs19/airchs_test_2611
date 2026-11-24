@@ -176,9 +176,9 @@
   .p-price{display:flex;align-items:baseline;gap:6px;margin-top:5px}
   .p-price .now{font-size:15.5px;font-weight:700;letter-spacing:-.02em;color:#111}
   .p-price .pct{font-size:13px;font-weight:800;color:var(--accent);letter-spacing:-.02em}
-  .p-under{display:flex;align-items:center;gap:5px;margin-top:1px;min-height:16px}
-  .p-under .old{font-size:11px;color:#b4b4b4;text-decoration:line-through}
-  .p-under .maxdeal{font-size:9px;color:var(--accent-deep);background:var(--accent-soft);border:1px solid #ffddcd;padding:1px 4px;line-height:1.35;border-radius:2px;font-weight:600;letter-spacing:-.01em}
+  .p-under{display:flex;align-items:center;gap:7px;margin-top:2px;min-height:15px}
+  .p-under .old{font-size:11px;color:#a9a9a9;text-decoration:line-through;flex:none}
+  .p-under .maxdeal{font-size:9.5px;color:#8f8f8f;background:#f5f5f5;padding:2px 5px;line-height:1.3;border-radius:2px;font-weight:500;letter-spacing:-.01em;flex:none}
   .p-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
   .p-tags button{font-size:10.5px;color:#777;background:#f4f4f4;border-radius:2px;padding:3px 6px;line-height:1.3;transition:background .15s,color .15s}
   .p-tags button:hover{background:#eaeaea;color:#222}
@@ -216,11 +216,11 @@
   /* ---------- service strip ---------- */
   .service{border-bottom:1px solid var(--line)}
   .service .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:26px 0}
-  .service div{display:flex;align-items:center;gap:11px;padding:0 20px;border-left:1px solid var(--line)}
-  .service div:first-child{border-left:0;padding-left:0}
+  .service .wrap > div{display:flex;align-items:center;gap:11px;padding:0 20px;border-left:1px solid var(--line)}
+  .service .wrap > div:first-child{border-left:0;padding-left:0}
   .service svg{width:22px;height:22px;color:#333;flex:none}
-  .service b{display:block;font-size:12.5px;font-weight:600;letter-spacing:-.01em}
-  .service span{display:block;font-size:11px;color:#969696;margin-top:1px}
+  .service b{display:block;font-size:12.5px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+  .service span{display:block;font-size:11px;color:#969696;margin-top:1px;letter-spacing:-.01em}
 
   /* ---------- footer ---------- */
   .footer{padding:46px 0 40px;background:#fff}
@@ -384,8 +384,9 @@
     .story .wrap{grid-template-columns:1fr;gap:28px}
     .story-visual{aspect-ratio:16/11;order:-1}
     .service .wrap{grid-template-columns:repeat(2,1fr);padding:18px 0;gap:16px 0}
-    .service div{padding:0 11px}
-    .service div:nth-child(odd){border-left:0;padding-left:0}
+    .service .wrap > div{padding:0 11px}
+    .service .wrap > div:nth-child(odd){border-left:0;padding-left:0}
+    .service b{font-size:11.5px}
     .foot-top{grid-template-columns:1fr 1fr;gap:24px}
     .sheet{grid-template-columns:1fr;width:min(440px,100%);max-height:90vh}
     .sheet-img img{min-height:0;aspect-ratio:3/4;height:auto}
@@ -409,7 +410,7 @@
     .hero-desc{font-size:11.5px}
     .sec-head-row h2{font-size:19px}
     .foot-top{grid-template-columns:1fr;gap:22px}
-    .service b{font-size:11.5px}
+    .service b{font-size:11px}
     .service span{font-size:10px}
   }
   @media (prefers-reduced-motion:reduce){
