@@ -1,0 +1,1392 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="noindex">
+<title>형선마켓 | HYEONGSEON MARKET · OFFICIAL SELECT SHOP</title>
+<meta name="description" content="동대문 셀렉트숍 형선마켓. 겨울 아우터부터 데일리 니트까지, 매일 입는 옷을 동대문에서 가장 먼저. (디자인 시안)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111;
+    --ink-2:#333;
+    --muted:#8c8c8c;
+    --muted-2:#a8a8a8;
+    --line:#eee;
+    --line-2:#e2e2e2;
+    --soft:#fafafa;
+    --soft-2:#f5f5f5;
+    --accent:#ff5a1c;
+    --accent-deep:#e64a0d;
+    --accent-soft:#fff3ee;
+    --white:#fff;
+    --maxw:1240px;
+    --font:"Noto Sans KR","Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","맑은 고딕","Helvetica Neue",Arial,sans-serif;
+    --nav-h:56px;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 12px)}
+  body{margin:0;background:var(--white);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  body.locked{overflow:hidden}
+  h1,h2,h3,h4,p,ul,ol,li,figure{margin:0;padding:0}
+  ul,ol{list-style:none}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+  img{display:block;max-width:100%}
+  input{font:inherit;color:inherit}
+  svg{display:block}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .wrap{width:min(var(--maxw),100% - 48px);margin:0 auto}
+
+  /* ---------- top utility bar ---------- */
+  .topbar{background:var(--accent);color:#fff;font-size:12.5px}
+  .topbar .wrap{min-height:44px;display:flex;align-items:center;gap:18px;padding:6px 0}
+  .topbar .brand-note{display:flex;align-items:center;gap:9px;font-weight:500;min-width:0;white-space:nowrap}
+  .topbar .brand-note b{font-weight:700;letter-spacing:-.01em}
+  .topbar .sep{width:1px;height:11px;background:rgba(255,255,255,.45);flex:none}
+  .topbar .links{display:flex;align-items:center;gap:14px;margin-left:auto;white-space:nowrap}
+  .topbar .links a,.topbar .links button{opacity:.92;transition:opacity .15s}
+  .topbar .links a:hover,.topbar .links button:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
+  .search{position:relative;flex:none;width:250px}
+  .search input{width:100%;height:32px;border:0;border-radius:999px;padding:0 38px 0 16px;background:#fff;color:#222;font-size:12.5px}
+  .search input::placeholder{color:#a3a3a3}
+  .search .sbtn{position:absolute;right:4px;top:4px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#555}
+  .search .sbtn:hover{background:#f2f2f2;color:#111}
+  .demo-chip{font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 7px;border:1px solid rgba(255,255,255,.5);border-radius:3px;flex:none}
+
+  /* ---------- brand bar ---------- */
+  .brandbar{background:#fff}
+  .brandbar .wrap{min-height:112px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:14px 0}
+  .bb-left{display:flex;align-items:center;gap:8px}
+  .pill-btn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 16px;border:1px solid var(--line-2);border-radius:4px;font-size:12.5px;color:#333;background:#fff;transition:border-color .15s,color .15s}
+  .pill-btn:hover{border-color:#bbb;color:#000}
+  .wordmark{text-align:center;line-height:1;display:flex;flex-direction:column;align-items:center;gap:9px}
+  .wordmark .wm{font-size:35px;font-weight:900;letter-spacing:-.045em;display:inline-flex;align-items:flex-start;gap:3px}
+  .wordmark .wm i{display:block;width:7px;height:7px;background:var(--accent);border-radius:50%;margin-top:3px;flex:none}
+  .wordmark .en{font-size:10px;font-weight:600;letter-spacing:.34em;color:#111;text-indent:.34em}
+  .wordmark .sub{font-size:9px;letter-spacing:.2em;color:var(--muted);font-weight:500;text-indent:.2em}
+  .bb-right{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+  .visitors{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 12px;border-radius:999px;background:var(--soft-2);color:#777;font-size:11.5px;white-space:nowrap}
+  .visitors b{color:#333;font-weight:600}
+  .visitors .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none;animation:blink 2.2s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+  .iconbtn{position:relative;width:40px;height:40px;border:1px solid var(--line-2);border-radius:4px;display:grid;place-items:center;color:#222;transition:border-color .15s,background .15s}
+  .iconbtn:hover{border-color:#bbb;background:var(--soft)}
+  .badge{position:absolute;top:-7px;right:-7px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;line-height:1;border:2px solid #fff}
+  .badge[hidden]{display:none}
+
+  /* ---------- nav ---------- */
+  .nav{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .nav .wrap{height:var(--nav-h);display:flex;align-items:center;gap:2px;justify-content:center}
+  .nav a,.nav button.navitem{position:relative;height:var(--nav-h);display:inline-flex;align-items:center;padding:0 20px;font-size:14px;color:#2b2b2b;letter-spacing:-.01em;white-space:nowrap}
+  .nav a::after,.nav button.navitem::after{content:"";position:absolute;left:20px;right:20px;bottom:-1px;height:2px;background:#111;transform:scaleX(0);transform-origin:center;transition:transform .22s ease}
+  .nav a:hover::after,.nav button.navitem:hover::after,.nav a.active::after,.nav button.navitem.active::after{transform:scaleX(1)}
+  .nav .navitem.strong{font-weight:700}
+  .nav .caret{width:9px;height:9px;margin-left:6px;color:#999}
+  .nav-dd{position:relative}
+  .nav-dd .dd{position:absolute;top:100%;left:50%;transform:translate(-50%,6px);min-width:184px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 40px -22px rgba(0,0,0,.35);padding:8px;opacity:0;visibility:hidden;transition:opacity .16s,transform .16s;z-index:5}
+  .nav-dd:hover .dd,.nav-dd:focus-within .dd{opacity:1;visibility:visible;transform:translate(-50%,0)}
+  .dd button{display:block;width:100%;text-align:left;padding:10px 12px;font-size:13px;color:#444;border-radius:2px}
+  .dd button:hover{background:var(--soft-2);color:#111}
+  .nav .spacer{flex:1}
+  .nav .nav-icons{display:flex;align-items:center;gap:14px;color:#444;font-size:12.5px}
+  .nav .nav-icons button{display:inline-flex;align-items:center;gap:6px;color:#555}
+  .nav .nav-icons button:hover{color:#111}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;height:min(62vh,540px);min-height:420px;overflow:hidden;background:#0d1626}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%}
+  .hero-veil{position:absolute;inset:0;background:
+    radial-gradient(58% 78% at 50% 50%,rgba(8,14,26,.62),rgba(8,14,26,.14) 70%,rgba(8,14,26,.3) 100%),
+    linear-gradient(to bottom,rgba(8,14,26,.28),rgba(8,14,26,0) 40%,rgba(8,14,26,.42))}
+  .hero-copy{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 24px}
+  .hero-eyebrow{font-size:10.5px;letter-spacing:.4em;font-weight:500;color:rgba(255,255,255,.82);text-indent:.4em}
+  .hero h1{font-size:clamp(34px,5.2vw,58px);font-weight:900;letter-spacing:.06em;line-height:1.05;margin:16px 0 12px;text-shadow:0 2px 30px rgba(0,0,0,.28)}
+  .hero-sub{font-size:clamp(10px,1.25vw,13px);letter-spacing:.32em;font-weight:500;color:rgba(255,255,255,.9);text-indent:.32em}
+  .hero-desc{margin-top:18px;font-size:13px;color:rgba(255,255,255,.8);letter-spacing:-.01em}
+  .hero-actions{display:flex;gap:8px;margin-top:26px}
+  .btn-white,.btn-ghost{height:42px;padding:0 24px;border-radius:2px;font-size:12.5px;font-weight:600;letter-spacing:.02em;display:inline-flex;align-items:center;gap:8px;transition:background .18s,color .18s,border-color .18s}
+  .btn-white{background:#fff;color:#111}
+  .btn-white:hover{background:#f0f0f0}
+  .btn-ghost{border:1px solid rgba(255,255,255,.55);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.14)}
+  .hero-side{position:absolute;right:26px;bottom:24px;z-index:2;color:rgba(255,255,255,.75);font-size:11px;letter-spacing:.16em}
+
+  /* ---------- coupon ---------- */
+  .coupon-sec{padding:34px 0 10px;text-align:center}
+  .coupon-title{font-size:13.5px;font-weight:700;letter-spacing:-.01em;color:#222}
+  .coupon-band{margin:14px auto 0;width:min(1000px,100%);background:var(--soft-2);border-radius:2px;padding:16px 22px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+  .coupon-band p{font-size:14px;color:#333;letter-spacing:-.01em}
+  .coupon-band p b{color:var(--accent-deep);font-weight:700}
+  .coupon-btn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;height:38px;padding:0 8px 0 16px;border-radius:2px;font-size:12px;font-weight:700;letter-spacing:.06em;transition:background .16s}
+  .coupon-btn:hover{background:var(--accent-deep)}
+  .coupon-btn .cicon{width:26px;height:26px;background:rgba(0,0,0,.16);border-radius:2px;display:grid;place-items:center}
+  .coupon-btn.done{background:#2d2d2d}
+  .coupon-btn.done .cicon{background:rgba(255,255,255,.16)}
+
+  /* ---------- section common ---------- */
+  .sec{padding:58px 0}
+  .sec-head{text-align:center;margin-bottom:26px}
+  .eyebrow{font-size:10px;letter-spacing:.3em;color:var(--accent);font-weight:700;text-indent:.3em}
+  .sec-head h2{font-size:29px;font-weight:900;letter-spacing:-.045em;margin-top:8px}
+  .sec-head p.desc{margin-top:8px;font-size:12.5px;color:var(--muted);letter-spacing:-.01em}
+  .sec-head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:20px}
+  .sec-head-row h2{font-size:24px;font-weight:900;letter-spacing:-.045em}
+  .sec-head-row .more{font-size:12px;color:#777;display:inline-flex;align-items:center;gap:4px}
+  .sec-head-row .more:hover{color:#111}
+  .tabs{display:flex;align-items:center;justify-content:center;gap:0;margin:16px 0 30px;border-bottom:1px solid var(--line)}
+  .tabs button{position:relative;height:44px;padding:0 22px;font-size:13px;color:#8a8a8a;letter-spacing:-.01em;display:inline-flex;align-items:center;gap:6px}
+  .tabs button::after{content:"";position:absolute;left:16px;right:16px;bottom:-1px;height:2px;background:#111;transform:scaleX(0);transition:transform .2s}
+  .tabs button:hover{color:#333}
+  .tabs button.on{color:#111;font-weight:700}
+  .tabs button.on::after{transform:scaleX(1)}
+  .tabs .live{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:blink 2s infinite}
+
+  /* ---------- product grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:44px 22px}
+  .card{position:relative;display:flex;flex-direction:column}
+  .thumb{position:relative;overflow:hidden;background:var(--soft-2);border-radius:1px}
+  .thumb img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .5s cubic-bezier(.2,.6,.2,1)}
+  .card:hover .thumb img{transform:scale(1.035)}
+  .rank{position:absolute;top:0;left:0;z-index:2;background:#111;color:#fff;font-size:11px;font-weight:700;letter-spacing:.02em;padding:6px 10px;line-height:1}
+  .rank.top{background:var(--accent)}
+  .newbadge{position:absolute;top:10px;right:10px;z-index:2;background:#fff;color:#111;font-size:9.5px;font-weight:700;letter-spacing:.14em;padding:5px 7px;line-height:1;border:1px solid #111}
+  .heart{position:absolute;right:10px;bottom:10px;z-index:3;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;color:#555;box-shadow:0 1px 6px rgba(0,0,0,.08);transition:transform .15s,color .15s}
+  .heart:hover{transform:scale(1.08);color:#111}
+  .heart svg{width:16px;height:16px}
+  .heart.on{color:var(--accent)}
+  .hoverbar{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;gap:1px;transform:translateY(100%);transition:transform .22s ease}
+  .card:hover .hoverbar,.card:focus-within .hoverbar{transform:translateY(0)}
+  .hoverbar button{flex:1;height:38px;background:rgba(17,17,17,.92);color:#fff;font-size:11.5px;font-weight:600;letter-spacing:.02em}
+  .hoverbar button:hover{background:#000}
+  .hoverbar button.ghost{background:rgba(255,255,255,.95);color:#111;flex:0 0 44px}
+  .info{padding:14px 2px 0;display:flex;flex-direction:column;gap:5px}
+  .p-brand{font-size:10px;letter-spacing:.14em;color:#9a9a9a;font-weight:600}
+  .p-name{font-size:13.5px;font-weight:500;color:#1a1a1a;letter-spacing:-.02em;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .p-spec{font-size:11.5px;color:var(--muted);letter-spacing:-.015em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .p-rate{font-size:11px;color:#999;display:flex;align-items:center;gap:4px}
+  .p-rate .star{color:#111}
+  .p-rate b{color:#666;font-weight:500}
+  .p-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .p-price .old{font-size:11.5px;color:#b0b0b0;text-decoration:line-through}
+  .p-price .now{font-size:15.5px;font-weight:700;letter-spacing:-.02em;color:#111}
+  .p-price .now em{font-style:normal;font-size:11px;font-weight:400;margin-left:1px}
+  .p-price .pct{font-size:13px;font-weight:800;color:var(--accent);letter-spacing:-.02em}
+  .p-price .maxdeal{font-size:9.5px;color:var(--accent-deep);background:var(--accent-soft);border:1px solid #ffd9c9;padding:2px 5px;line-height:1.2;border-radius:2px;font-weight:600}
+  .p-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+  .p-tags button{font-size:10.5px;color:#777;background:#f4f4f4;border-radius:2px;padding:3px 6px;line-height:1.3;transition:background .15s,color .15s}
+  .p-tags button:hover{background:#eaeaea;color:#222}
+  .soldout{position:absolute;inset:0;background:rgba(255,255,255,.55);display:grid;place-items:center;font-size:11px;letter-spacing:.14em;font-weight:700;color:#444;z-index:1}
+
+  /* ---------- shop controls ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+  .chips button{height:32px;padding:0 14px;border:1px solid var(--line-2);border-radius:999px;font-size:12px;color:#555;background:#fff;transition:all .15s}
+  .chips button:hover{border-color:#999;color:#111}
+  .chips button.on{background:#111;border-color:#111;color:#fff;font-weight:600}
+  .shop-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:11px 2px;margin:14px 0 26px;flex-wrap:wrap}
+  .sorts{display:flex;align-items:center;gap:0;flex-wrap:wrap}
+  .sorts button{font-size:12px;color:#8a8a8a;padding:4px 12px;position:relative;letter-spacing:-.01em}
+  .sorts button + button::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:10px;background:#e2e2e2}
+  .sorts button:hover{color:#333}
+  .sorts button.on{color:#111;font-weight:700}
+  .shop-count{font-size:12px;color:#999}
+  .shop-count b{color:#111;font-weight:600}
+  .empty{grid-column:1/-1;padding:70px 0;text-align:center;color:#999;font-size:13px}
+
+  /* ---------- story ---------- */
+  .story{background:#111;color:#fff;padding:70px 0}
+  .story .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+  .story .eyebrow{color:#ff8a5c}
+  .story h2{font-size:clamp(24px,3.2vw,36px);font-weight:900;letter-spacing:-.05em;line-height:1.32;margin:12px 0 18px}
+  .story p{font-size:13px;color:#b9b9b9;line-height:1.9;letter-spacing:-.01em;max-width:46ch}
+  .story .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#2a2a2a;margin-top:30px}
+  .story .stats div{background:#111;padding:18px 16px}
+  .story .stats b{display:block;font-size:22px;font-weight:800;letter-spacing:-.03em}
+  .story .stats span{font-size:11px;color:#8f8f8f;letter-spacing:-.01em}
+  .story-visual{position:relative;aspect-ratio:4/3.4;overflow:hidden;background:#1a1a1a}
+  .story-visual img{width:100%;height:100%;object-fit:cover;opacity:.92}
+  .story-visual figcaption{position:absolute;left:16px;bottom:14px;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.7)}
+
+  /* ---------- service strip ---------- */
+  .service{border-bottom:1px solid var(--line)}
+  .service .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:26px 0}
+  .service div{display:flex;align-items:center;gap:11px;padding:0 20px;border-left:1px solid var(--line)}
+  .service div:first-child{border-left:0;padding-left:0}
+  .service svg{width:22px;height:22px;color:#333;flex:none}
+  .service b{display:block;font-size:12.5px;font-weight:600;letter-spacing:-.01em}
+  .service span{display:block;font-size:11px;color:#969696;margin-top:1px}
+
+  /* ---------- footer ---------- */
+  .footer{padding:46px 0 40px;background:#fff}
+  .foot-top{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:30px}
+  .foot-brand .wm{font-size:19px;font-weight:900;letter-spacing:-.04em}
+  .foot-brand .en{font-size:8.5px;letter-spacing:.26em;color:#999;margin-top:6px}
+  .foot-brand p{font-size:11.5px;color:#8a8a8a;margin-top:14px;line-height:1.75;letter-spacing:-.01em;max-width:30ch}
+  .foot-col h3{font-size:11.5px;font-weight:700;letter-spacing:.02em;margin-bottom:12px;color:#222}
+  .foot-col li{margin-bottom:7px}
+  .foot-col a,.foot-col button{font-size:11.5px;color:#8a8a8a;letter-spacing:-.01em}
+  .foot-col a:hover,.foot-col button:hover{color:#111}
+  .notice{margin-top:32px;border:1px solid var(--line);background:var(--soft);padding:14px 16px;font-size:11.5px;color:#8c8c8c;line-height:1.75;letter-spacing:-.01em}
+  .notice b{color:#555;font-weight:600}
+  .foot-bottom{margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:11px;color:#a5a5a5}
+  .foot-bottom .links{display:flex;gap:14px;flex-wrap:wrap}
+
+  /* ---------- floating ---------- */
+  .float{position:fixed;right:22px;bottom:26px;z-index:60;display:flex;flex-direction:column;gap:8px}
+  .float button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:#fff;color:#444;display:grid;place-items:center;box-shadow:0 6px 18px -10px rgba(0,0,0,.4);transition:all .15s}
+  .float button:hover{border-color:#999;color:#111;transform:translateY(-1px)}
+
+  /* ---------- drawer (cart) ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(10,10,10,.42);opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s;z-index:80}
+  .scrim.on{opacity:1;visibility:visible}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:#fff;z-index:90;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s cubic-bezier(.3,.7,.2,1);box-shadow:-20px 0 60px -30px rgba(0,0,0,.4)}
+  .drawer.on{transform:translateX(0)}
+  .drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}
+  .drawer-head h2{font-size:16px;font-weight:800;letter-spacing:-.03em}
+  .drawer-head h2 em{font-style:normal;color:var(--accent);font-size:13px;margin-left:4px}
+  .xbtn{width:32px;height:32px;display:grid;place-items:center;color:#666;border-radius:50%}
+  .xbtn:hover{background:#f2f2f2;color:#111}
+  .ship{margin:14px 22px 0;border:1px solid var(--line);padding:12px 14px;font-size:11.5px;color:#666;letter-spacing:-.01em}
+  .ship b{color:var(--accent-deep)}
+  .shipbar{height:4px;background:#f0f0f0;margin-top:8px;border-radius:2px;overflow:hidden}
+  .shipbar i{display:block;height:100%;background:var(--accent);width:0;transition:width .35s ease}
+  .drawer-body{flex:1;overflow-y:auto;padding:8px 22px 20px}
+  .citem{display:flex;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .citem img{width:72px;height:96px;object-fit:cover;background:var(--soft-2);flex:none}
+  .citem .cbody{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+  .citem .cname{font-size:12.5px;font-weight:500;letter-spacing:-.02em;line-height:1.4;padding-right:18px}
+  .citem .copt{font-size:11px;color:#999}
+  .citem .cprice{font-size:12.5px;font-weight:700;margin-top:2px}
+  .citem .cprice em{font-style:normal;font-size:10.5px;font-weight:400;color:#888}
+  .qty{display:inline-flex;align-items:center;border:1px solid var(--line-2);height:28px;margin-top:6px;width:88px}
+  .qty button{width:26px;height:100%;display:grid;place-items:center;color:#666;font-size:14px;line-height:1}
+  .qty button:hover{background:#f4f4f4;color:#111}
+  .qty span{flex:1;text-align:center;font-size:11.5px;font-weight:600}
+  .cremove{font-size:10.5px;color:#a0a0a0;text-decoration:underline;text-underline-offset:2px;margin-top:6px;align-self:flex-start}
+  .cremove:hover{color:#111}
+  .cempty{padding:80px 0;text-align:center;color:#999;display:flex;flex-direction:column;align-items:center;gap:14px}
+  .cempty svg{width:40px;height:40px;color:#ddd}
+  .cempty p{font-size:12.5px;line-height:1.7}
+  .cempty button{margin-top:4px;height:38px;padding:0 20px;border:1px solid #111;font-size:12px;font-weight:600}
+  .cempty button:hover{background:#111;color:#fff}
+  .drawer-foot{border-top:1px solid var(--line);padding:16px 22px 20px;background:#fff}
+  .sumrow{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#777;margin-bottom:7px}
+  .sumrow.disc{color:var(--accent-deep)}
+  .sumrow.total{margin:14px 0 14px;padding-top:13px;border-top:1px solid var(--line);font-size:13px;color:#111;font-weight:700}
+  .sumrow.total b{font-size:18px;letter-spacing:-.03em}
+  .cbtn{width:100%;height:48px;background:#111;color:#fff;font-size:13px;font-weight:700;letter-spacing:.02em;border-radius:2px}
+  .cbtn:hover{background:#000}
+  .cbtn.alt{background:#fff;color:#333;border:1px solid var(--line-2);height:38px;font-size:11.5px;font-weight:500;margin-top:8px}
+  .cbtn.alt:hover{background:var(--soft)}
+
+  /* ---------- quick option modal ---------- */
+  .modal{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+  .modal.on{opacity:1;visibility:visible}
+  .modal .mscrim{position:absolute;inset:0;background:rgba(10,10,10,.45)}
+  .sheet{position:relative;z-index:1;width:min(880px,100%);max-height:min(88vh,720px);overflow:auto;background:#fff;display:grid;grid-template-columns:400px 1fr;transform:translateY(10px) scale(.99);transition:transform .22s}
+  .modal.on .sheet{transform:none}
+  .sheet-img{background:var(--soft-2)}
+  .sheet-img img{width:100%;height:100%;object-fit:cover;min-height:420px}
+  .sheet-body{padding:28px 28px 24px;display:flex;flex-direction:column;gap:0;position:relative}
+  .sheet-body .close{position:absolute;right:14px;top:14px}
+  .sheet-brand{font-size:10px;letter-spacing:.16em;color:#9a9a9a;font-weight:600}
+  .sheet-body h2{font-size:19px;font-weight:800;letter-spacing:-.035em;margin:6px 0 8px;line-height:1.35}
+  .sheet-rate{font-size:11.5px;color:#999;display:flex;align-items:center;gap:6px}
+  .sheet-rate b{color:#111;font-weight:600}
+  .sheet-price{display:flex;align-items:baseline;gap:8px;margin:14px 0 2px;flex-wrap:wrap}
+  .sheet-price .pct{color:var(--accent);font-size:18px;font-weight:800;letter-spacing:-.03em}
+  .sheet-price .now{font-size:22px;font-weight:800;letter-spacing:-.03em}
+  .sheet-price .old{font-size:12px;color:#b0b0b0;text-decoration:line-through}
+  .sheet-desc{font-size:12px;color:#888;line-height:1.7;letter-spacing:-.01em;margin-bottom:16px}
+  .opt-group{border-top:1px solid var(--line);padding:14px 0 4px}
+  .opt-group .lbl{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:#555;margin-bottom:9px}
+  .opt-group .lbl b{color:#111;font-weight:600;font-size:11.5px}
+  .swatches{display:flex;flex-wrap:wrap;gap:8px}
+  .sw{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 10px 0 7px;border:1px solid var(--line-2);font-size:11.5px;color:#444;border-radius:2px}
+  .sw i{width:16px;height:16px;border-radius:50%;border:1px solid rgba(0,0,0,.12);display:block}
+  .sw.on{border-color:#111;color:#111;font-weight:600}
+  .sizes{display:flex;flex-wrap:wrap;gap:6px}
+  .sz{min-width:48px;height:34px;padding:0 12px;border:1px solid var(--line-2);font-size:11.5px;color:#444;position:relative}
+  .sz:hover{border-color:#999}
+  .sz.on{border-color:#111;background:#111;color:#fff;font-weight:600}
+  .sz:disabled{color:#cfcfcf;border-color:#eee;cursor:default;background:repeating-linear-gradient(-45deg,#fafafa,#fafafa 4px,#f2f2f2 4px,#f2f2f2 8px)}
+  .opt-total{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:16px;padding-top:14px}
+  .opt-total span{font-size:11.5px;color:#777}
+  .opt-total b{font-size:17px;font-weight:800;letter-spacing:-.03em}
+  .opt-actions{display:flex;gap:6px;margin-top:12px}
+  .opt-actions button{flex:1;height:46px;font-size:12.5px;font-weight:700;letter-spacing:.01em;border-radius:2px}
+  .opt-actions .add{background:#fff;border:1px solid #111;color:#111}
+  .opt-actions .add:hover{background:#f4f4f4}
+  .opt-actions .buy{background:#111;color:#fff}
+  .opt-actions .buy:hover{background:#000}
+  .opt-note{font-size:10.5px;color:#a5a5a5;margin-top:9px;letter-spacing:-.01em}
+  .opt-warn{font-size:11px;color:var(--accent-deep);margin-top:8px;min-height:0}
+
+  /* ---------- search panel ---------- */
+  .searchpanel{position:fixed;top:0;left:0;right:0;z-index:100;background:#fff;transform:translateY(-102%);transition:transform .26s cubic-bezier(.3,.7,.2,1);box-shadow:0 30px 60px -40px rgba(0,0,0,.4)}
+  .searchpanel.on{transform:translateY(0)}
+  .searchpanel .sp-inner{width:min(760px,100% - 40px);margin:0 auto;padding:22px 0 26px}
+  .sp-top{display:flex;align-items:center;gap:12px;border-bottom:2px solid #111;padding-bottom:12px}
+  .sp-top svg{width:20px;height:20px;color:#111;flex:none}
+  .sp-top input{flex:1;border:0;outline:0;font-size:17px;font-weight:500;letter-spacing:-.02em;padding:4px 0}
+  .sp-top input::placeholder{color:#bbb;font-weight:400}
+  .sp-top .xbtn{flex:none}
+  .sp-label{font-size:10.5px;letter-spacing:.14em;color:#999;margin:16px 0 10px;font-weight:600}
+  .sp-keys{display:flex;flex-wrap:wrap;gap:6px}
+  .sp-keys button{height:30px;padding:0 12px;border:1px solid var(--line-2);border-radius:999px;font-size:11.5px;color:#555}
+  .sp-keys button:hover{border-color:#999;color:#111}
+  .sp-results{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:4px}
+  .sp-card img{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--soft-2)}
+  .sp-card b{display:block;font-size:11.5px;font-weight:500;margin-top:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sp-card span{font-size:11px;color:#888}
+  .sp-none{font-size:12px;color:#999;padding:18px 0}
+
+  /* ---------- toast ---------- */
+  .toast{position:fixed;left:50%;bottom:34px;transform:translate(-50%,20px);z-index:120;background:#111;color:#fff;font-size:12px;letter-spacing:-.01em;padding:12px 18px;border-radius:3px;opacity:0;visibility:hidden;transition:all .24s;max-width:calc(100% - 32px);text-align:center;box-shadow:0 16px 40px -18px rgba(0,0,0,.6)}
+  .toast.on{opacity:1;visibility:visible;transform:translate(-50%,0)}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1100px){
+    .grid{grid-template-columns:repeat(3,1fr)}
+    .sp-results{grid-template-columns:repeat(3,1fr)}
+    .search{width:200px}
+    .story .wrap{gap:36px}
+  }
+  @media (max-width:900px){
+    .wrap{width:calc(100% - 32px)}
+    .brandbar .wrap{grid-template-columns:auto 1fr auto;min-height:84px;gap:10px}
+    .bb-left .pill-btn span{display:none}
+    .wordmark .wm{font-size:25px}
+    .wordmark .en{font-size:8px;letter-spacing:.26em}
+    .wordmark .sub{display:none}
+    .visitors{display:none}
+    .topbar .brand-note .hide-s{display:none}
+    .topbar .links{gap:10px}
+    .topbar .search{display:none}
+    .nav .wrap{justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding:0 4px}
+    .nav .wrap::-webkit-scrollbar{display:none}
+    .nav a,.nav button.navitem{padding:0 13px;font-size:13px}
+    .nav .nav-icons{display:none}
+    .hero{height:58vh;min-height:360px}
+    .hero-side{display:none}
+    .grid{grid-template-columns:repeat(2,1fr);gap:30px 12px}
+    .sp-results{grid-template-columns:repeat(2,1fr)}
+    .sec{padding:42px 0}
+    .sec-head h2{font-size:23px}
+    .story{padding:46px 0}
+    .story .wrap{grid-template-columns:1fr;gap:28px}
+    .story-visual{aspect-ratio:16/11;order:-1}
+    .service .wrap{grid-template-columns:repeat(2,1fr);padding:18px 0;gap:16px 0}
+    .service div{padding:0 11px}
+    .service div:nth-child(odd){border-left:0;padding-left:0}
+    .foot-top{grid-template-columns:1fr 1fr;gap:24px}
+    .sheet{grid-template-columns:1fr;width:min(440px,100%);max-height:90vh}
+    .sheet-img img{min-height:0;aspect-ratio:3/4;height:auto}
+    .sheet-body{padding:20px 20px 20px}
+    .hoverbar{display:none}
+    .float{right:12px;bottom:16px}
+    .tabs button{padding:0 15px}
+    .shop-bar{gap:10px}
+    .sorts{flex-wrap:wrap}
+    .sorts button{padding:4px 9px;font-size:11.5px}
+  }
+  @media (max-width:560px){
+    .topbar .links a:nth-child(n+2),.topbar .links button.hide-s{display:none}
+    .sec-head h2{font-size:21px}
+    .p-name{font-size:12.5px}
+    .p-price .now{font-size:14px}
+    .p-price .maxdeal{display:none}
+    .coupon-band{padding:14px;gap:10px}
+    .coupon-band p{font-size:12.5px}
+    .hero-actions .btn-ghost{display:none}
+    .hero-desc{font-size:11.5px}
+    .sec-head-row h2{font-size:19px}
+    .foot-top{grid-template-columns:1fr;gap:22px}
+    .service b{font-size:11.5px}
+    .service span{font-size:10px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ top utility bar ══════════ -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand-note">
+      <b>형선마켓</b>
+      <span class="sep"></span>
+      <span class="hide-s">동대문 셀렉트숍 · 오늘출발</span>
+      <span class="demo-chip">DEMO</span>
+    </div>
+    <form class="search" id="topSearch" role="search" autocomplete="off">
+      <input type="search" id="topSearchInput" placeholder="형선마켓 상품을 검색해보세요" aria-label="상품 검색">
+      <button class="sbtn" type="submit" aria-label="검색">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.7-3.7"/></svg>
+      </button>
+    </form>
+    <div class="links">
+      <a href="#footer">로그인</a>
+      <a href="#footer">회원가입</a>
+      <a href="#footer">주문조회</a>
+      <a href="#footer" class="hide-s">고객센터</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ brand bar ══════════ -->
+<header class="brandbar">
+  <div class="wrap">
+    <div class="bb-left">
+      <button class="pill-btn" id="notifyBtn" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        <span>알림받기</span>
+      </button>
+    </div>
+
+    <a class="wordmark" href="#top" aria-label="형선마켓 홈">
+      <span class="wm">형선마켓<i aria-hidden="true"></i></span>
+      <span class="en">HYEONGSEON MARKET</span>
+      <span class="sub">OFFICIAL SELECT SHOP</span>
+    </a>
+
+    <div class="bb-right">
+      <div class="visitors"><i class="dot" aria-hidden="true"></i>오늘 <b id="todayCount">106</b> · 전체 <b>8,909</b></div>
+      <button class="iconbtn" id="wishBtn" type="button" aria-label="찜한 상품">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg>
+        <span class="badge" id="wishBadge" hidden>0</span>
+      </button>
+      <button class="iconbtn" id="cartBtn" type="button" aria-label="장바구니 열기">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="badge" id="cartBadge" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ nav ══════════ -->
+<nav class="nav" id="topnav" aria-label="주요 메뉴">
+  <div class="wrap">
+    <a href="#best" data-nav="best">베스트</a>
+    <div class="nav-dd">
+      <button class="navitem" type="button" data-cat="all">
+        패션의류
+        <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="dd" role="menu">
+        <button type="button" data-cat="all" role="menuitem">전체 상품</button>
+        <button type="button" data-cat="outer" role="menuitem">아우터 · 패딩</button>
+        <button type="button" data-cat="hoodie" role="menuitem">후드 · 맨투맨</button>
+        <button type="button" data-cat="pants" role="menuitem">팬츠</button>
+        <button type="button" data-cat="tee" role="menuitem">티셔츠</button>
+      </div>
+    </div>
+    <a href="#shop" data-cat="outer" data-nav="outer">아우터</a>
+    <a href="#shop" data-nav="shop">전체상품</a>
+    <a href="#new" data-nav="new">신상품</a>
+    <a href="#story" data-nav="story">브랜드 스토리</a>
+    <div class="nav-icons" style="margin-left:auto">
+      <button type="button" id="searchOpen2">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.7-3.7"/></svg>
+        검색
+      </button>
+      <button type="button" id="cartOpen3">장바구니</button>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- ══════════ hero ══════════ -->
+  <section class="hero">
+    <img class="hero-img" src="assets/hero-rack.jpg" alt="겨울 아우터 컬렉션 — 레일에 걸린 패딩 재킷과 베스트" fetchpriority="high">
+    <div class="hero-veil"></div>
+    <div class="hero-copy">
+      <p class="hero-eyebrow">2026 WINTER COLLECTION</p>
+      <h1>HYEONGSEON MARKET</h1>
+      <p class="hero-sub">OFFICIAL BRAND &amp; DONGDAEMUN SELECT SHOP</p>
+      <p class="hero-desc">동대문에서 가장 먼저 만나는 겨울 아우터 셀렉션</p>
+      <div class="hero-actions">
+        <button class="btn-white" type="button" data-scroll="#new">
+          신상품 보기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h13"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+        <button class="btn-ghost" type="button" data-scroll="#best">베스트 상품</button>
+      </div>
+    </div>
+    <p class="hero-side">SEOUL · DONGDAEMUN</p>
+  </section>
+
+  <!-- ══════════ coupon ══════════ -->
+  <section class="coupon-sec">
+    <p class="coupon-title">형선마켓 회원이라면, 혜택 다운받고 쇼핑하세요!</p>
+    <div class="wrap">
+      <div class="coupon-band">
+        <p>첫 구매 고객에게 드리는 혜택! <b>2,000원 중복할인 쿠폰</b> 다운로드</p>
+        <button class="coupon-btn" id="couponBtn" type="button">
+          COUPON
+          <span class="cicon" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ best ══════════ -->
+  <section class="sec" id="best">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">BEST SELLER</p>
+        <h2>베스트 상품</h2>
+        <p class="desc">지금 형선마켓에서 가장 많이 팔리는 겨울 아이템</p>
+      </div>
+      <div class="tabs" role="tablist" id="bestTabs" aria-label="베스트 집계 기간">
+        <button type="button" class="on" data-tab="realtime" role="tab" aria-selected="true"><i class="live" aria-hidden="true"></i>실시간</button>
+        <button type="button" data-tab="day" role="tab" aria-selected="false">일간</button>
+        <button type="button" data-tab="week" role="tab" aria-selected="false">주간</button>
+        <button type="button" data-tab="month" role="tab" aria-selected="false">월간</button>
+      </div>
+      <div class="grid" id="bestGrid"></div>
+      <div style="text-align:center;margin-top:34px">
+        <a class="more" href="#shop" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#666;border-bottom:1px solid #ccc;padding-bottom:3px">베스트 전체보기
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h13"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ new arrivals ══════════ -->
+  <section class="sec" id="new" style="padding-top:10px">
+    <div class="wrap">
+      <div class="sec-head-row">
+        <div>
+          <p class="eyebrow">NEW ARRIVALS</p>
+          <h2>신상품</h2>
+        </div>
+        <a class="more" href="#shop">신상품 전체보기
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h13"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="grid" id="newGrid"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ all products ══════════ -->
+  <section class="sec" id="shop" style="padding-top:16px">
+    <div class="wrap">
+      <div class="sec-head-row">
+        <div>
+          <p class="eyebrow">ALL ITEMS</p>
+          <h2>전체상품</h2>
+        </div>
+        <p class="shop-count">총 <b id="shopCount">8</b>개 상품</p>
+      </div>
+
+      <div class="chips" id="catChips" role="group" aria-label="카테고리 필터">
+        <button type="button" class="on" data-chip="all">전체</button>
+        <button type="button" data-chip="outer">아우터</button>
+        <button type="button" data-chip="hoodie">후드 · 맨투맨</button>
+        <button type="button" data-chip="pants">팬츠</button>
+        <button type="button" data-chip="tee">티셔츠</button>
+      </div>
+
+      <div class="shop-bar">
+        <div class="sorts" id="sortTabs" role="group" aria-label="정렬">
+          <button type="button" class="on" data-sort="popular">인기도순</button>
+          <button type="button" data-sort="latest">최신 등록순</button>
+          <button type="button" data-sort="low">낮은 가격순</button>
+          <button type="button" data-sort="high">높은 가격순</button>
+          <button type="button" data-sort="sale">할인율순</button>
+        </div>
+        <p class="shop-count" id="filterNote">동대문 셀렉션 · 오늘출발 상품</p>
+      </div>
+
+      <div class="grid" id="shopGrid"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ brand story ══════════ -->
+  <section class="story" id="story">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">BRAND STORY</p>
+        <h2>동대문에서 고른,<br>매일 손이 가는 옷.</h2>
+        <p>형선마켓은 동대문 도매 상가에서 직접 고른 상품만 정리해 소개하는 셀렉트숍입니다. 유행을 따라가기보다 매일 입고 싶은 기본을 고르고, 소재와 봉제를 한 번 더 확인한 뒤에 들입니다. 새벽에 올라온 신상은 그날 바로, 가장 좋은 가격으로.</p>
+        <div class="stats">
+          <div><b>37</b><span>동대문 협력 상가</span></div>
+          <div><b>4.8</b><span>상품 평균 평점</span></div>
+          <div><b>7일</b><span>안심 교환·반품</span></div>
+        </div>
+      </div>
+      <figure class="story-visual">
+        <img src="assets/hero-rack.jpg" alt="형선마켓 겨울 아우터 셀렉션" loading="lazy">
+        <figcaption>HYEONGSEON SELECTION · FW 2026</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ══════════ service ══════════ -->
+  <section class="service" aria-label="쇼핑 안내">
+    <div class="wrap">
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <div><b>오늘출발</b><span>평일 오후 2시 이전 결제</span></div>
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"/><path d="M2 3h20v5H2z"/><path d="M10 12h4"/></svg>
+        <div><b>5만원 이상 무료배송</b><span>미만 시 배송비 3,000원</span></div>
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+        <div><b>7일 안심 교환</b><span>단순 변심도 가능</span></div>
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l2-4.9a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.4-8.4A8.4 8.4 0 0 1 21 11.5z"/></svg>
+        <div><b>카카오 알림톡</b><span>주문·배송 실시간 안내</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ footer ══════════ -->
+  <footer class="footer" id="footer">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <p class="wm">형선마켓</p>
+          <p class="en">HYEONGSEON MARKET</p>
+          <p>동대문 셀렉트숍.<br>매일 입는 옷을 가장 좋은 가격으로.</p>
+        </div>
+        <div class="foot-col">
+          <h3>고객센터</h3>
+          <ul>
+            <li><a href="#footer">1:1 문의</a></li>
+            <li><a href="#footer">자주 묻는 질문</a></li>
+            <li><a href="#footer">배송 조회</a></li>
+            <li><a href="#footer">교환·반품 신청</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h3>쇼핑 정보</h3>
+          <ul>
+            <li><a href="#shop">전체 상품</a></li>
+            <li><a href="#new">신상품</a></li>
+            <li><a href="#footer">사이즈 가이드</a></li>
+            <li><a href="#footer">이용약관</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h3>브랜드</h3>
+          <ul>
+            <li><a href="#story">브랜드 스토리</a></li>
+            <li><a href="#footer">입점·제휴 문의</a></li>
+            <li><a href="#footer">개인정보처리방침</a></li>
+            <li><a href="#footer">공지사항</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="notice">
+        <b>디자인 시안 안내</b> — 이 페이지는 형선마켓 v2 디자인 시안으로 제작된 데모입니다.
+        실제 상품 판매·결제·배송이 이루어지지 않으며, 등록된 상품 정보·가격·리뷰·통계는 모두 예시입니다.
+        이미지는 시안용으로 생성된 이미지입니다.
+      </div>
+
+      <div class="foot-bottom">
+        <span>© 2026 HYEONGSEON MARKET. Prototype v2 — for design review only.</span>
+        <div class="links">
+          <a href="#footer">이용약관</a>
+          <a href="#footer">개인정보처리방침</a>
+          <a href="#top">맨 위로</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- ══════════ floating ══════════ -->
+<div class="float">
+  <button type="button" id="floatSearch" aria-label="검색">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.7-3.7"/></svg>
+  </button>
+  <button type="button" id="floatTop" aria-label="맨 위로">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+  </button>
+</div>
+
+<!-- ══════════ cart drawer ══════════ -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="장바구니" aria-hidden="true">
+  <div class="drawer-head">
+    <h2>장바구니 <em id="drawerCount">0</em></h2>
+    <button class="xbtn" type="button" id="drawerClose" aria-label="닫기">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="ship" id="shipBox">
+    <span id="shipMsg">5만원 이상 구매 시 무료배송</span>
+    <div class="shipbar"><i id="shipFill"></i></div>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot">
+    <div class="sumrow"><span>상품금액</span><span id="sumGoods">0원</span></div>
+    <div class="sumrow" id="rowCoupon" hidden><span>쿠폰 할인</span><span id="sumCoupon">-0원</span></div>
+    <div class="sumrow"><span>배송비</span><span id="sumShip">0원</span></div>
+    <div class="sumrow total"><span>결제예상금액</span><b id="sumTotal">0원</b></div>
+    <button class="cbtn" type="button" id="orderBtn">주문하기</button>
+    <button class="cbtn alt" type="button" id="clearBtn">장바구니 비우기</button>
+  </div>
+</aside>
+
+<!-- ══════════ option modal ══════════ -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="mscrim" data-close-modal></div>
+  <div class="sheet">
+    <div class="sheet-img"><img id="mImg" src="" alt=""></div>
+    <div class="sheet-body">
+      <button class="xbtn close" type="button" data-close-modal aria-label="닫기">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <p class="sheet-brand" id="mBrand"></p>
+      <h2 id="mTitle"></h2>
+      <p class="sheet-rate" id="mRate"></p>
+      <div class="sheet-price">
+        <span class="pct" id="mPct"></span>
+        <span class="now" id="mNow"></span>
+        <span class="old" id="mOld"></span>
+      </div>
+      <p class="sheet-desc" id="mDesc"></p>
+
+      <div class="opt-group">
+        <div class="lbl"><span>색상</span><b id="mColorTxt"></b></div>
+        <div class="swatches" id="mColors"></div>
+      </div>
+      <div class="opt-group">
+        <div class="lbl"><span>사이즈</span><b id="mSizeTxt">선택</b></div>
+        <div class="sizes" id="mSizes"></div>
+      </div>
+
+      <div class="opt-total">
+        <span>수량 <b id="mQtyTxt">1</b>개 · 총 상품금액</span>
+        <b id="mTotal"></b>
+      </div>
+      <div class="opt-actions">
+        <button class="add" type="button" id="mAdd">장바구니 담기</button>
+        <button class="buy" type="button" id="mBuy">바로 구매</button>
+      </div>
+      <p class="opt-warn" id="mWarn"></p>
+      <p class="opt-note">배송비 3,000원 · 5만원 이상 무료배송 · 오늘출발 상품</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ search panel ══════════ -->
+<div class="searchpanel" id="searchPanel" aria-hidden="true" role="dialog" aria-label="상품 검색">
+  <div class="sp-inner">
+    <div class="sp-top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.7-3.7"/></svg>
+      <input type="search" id="spInput" placeholder="상품명, 카테고리, 해시태그로 검색" aria-label="검색어">
+      <button class="xbtn" type="button" id="spClose" aria-label="검색 닫기">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p class="sp-label">인기 검색어</p>
+    <div class="sp-keys" id="spKeys">
+      <button type="button">겨울아우터</button>
+      <button type="button">커플후드티</button>
+      <button type="button">동대문셀렉트</button>
+      <button type="button">가성비좋은</button>
+      <button type="button">데일리코디</button>
+      <button type="button">롱패딩</button>
+      <button type="button">기본티</button>
+    </div>
+    <p class="sp-label" id="spResultLabel">추천 상품</p>
+    <div class="sp-results" id="spResults"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- data ---------------- */
+  var W = 'HYEONGSEON SELECT';
+  var PRODUCTS = [
+    { id:'hs01', name:'에어로 헤비 숏패딩', brand:W, cat:'outer', img:'assets/p1-puffer.jpg',
+      price:47000, list:49000, rating:4.9, reviews:2841, added:20261118, fame:98,
+      spec:'90/10 구스 다운 · 탈부착 후드',
+      desc:'가볍지만 보온은 확실한 헤비 다운. 탈부착 후드와 높은 카라로 목선을 따뜻하게 잡아줍니다. 블랙·차콜·아이보리 세 컬러.',
+      colors:[{n:'블랙',h:'#1b1b1d'},{n:'차콜',h:'#4b4b4f'},{n:'아이보리',h:'#eae4d8'}],
+      sizes:['M','L','XL'], sold:['XL'],
+      tags:['동대문셀렉트','겨울아우터','가성비좋은'] },
+
+    { id:'hs02', name:'셰르파 플리스 후드집업', brand:W, cat:'hoodie', img:'assets/p2-fleece-hoodie.jpg',
+      price:39000, list:59000, rating:4.8, reviews:1926, added:20261122, fame:94,
+      spec:'보아 플리스 · 오버핏 후드집업',
+      desc:'도톰한 보아 플리스로 한겨울 아우터 안에 입기 좋은 후드집업. 어깨를 살짝 떨어뜨린 오버핏으로 남녀 모두 편하게.',
+      colors:[{n:'아이보리',h:'#efe8da'},{n:'그레이',h:'#b7b6b3'},{n:'블랙',h:'#242427'}],
+      sizes:['S','M','L','XL'], sold:[],
+      tags:['커플후드티','데일리코디','보온템'] },
+
+    { id:'hs03', name:'헤비웨이트 오버핏 맨투맨', brand:W, cat:'hoodie', img:'assets/p3-sweatshirt.jpg',
+      price:29000, list:45000, rating:4.8, reviews:3412, added:20261110, fame:96,
+      spec:'580g 헤비 코튼 · 워싱 가공',
+      desc:'한겨울까지 입는 무게감의 헤비 맨투맨. 워싱 가공으로 처음부터 부드럽고, 넉넉한 어깨로 남녀공용으로 입기 좋습니다.',
+      colors:[{n:'멜란지그레이',h:'#a9a8a5'},{n:'블랙',h:'#26262a'},{n:'크림',h:'#e7ded0'}],
+      sizes:['M','L','XL'], sold:['M'],
+      tags:['데일리코디','헤비웨이트','남녀공용'] },
+
+    { id:'hs04', name:'라이트 다운 패딩 베스트', brand:W, cat:'outer', img:'assets/p4-padded-vest.jpg',
+      price:52000, list:69000, rating:4.7, reviews:1208, added:20261115, fame:90,
+      spec:'경량 다운 90/10 · 스탠드 카라',
+      desc:'코트나 후드 위에 레이어드하기 좋은 다운 베스트. 팔은 가볍고 몸통은 따뜻하게, 겨울 아우터로 가장 활용도가 높습니다.',
+      colors:[{n:'베이지',h:'#d8c4a4'},{n:'블랙',h:'#1d1d20'},{n:'올리브',h:'#6f7454'}],
+      sizes:['M','L','XL'], sold:[],
+      tags:['겨울아우터','레이어드','동대문셀렉트'] },
+
+    { id:'hs05', name:'에어리 코튼 레이어드 티', brand:W, cat:'tee', img:'assets/p5-basic-tees.jpg',
+      price:16900, list:25000, rating:4.6, reviews:5097, added:20261124, fame:88,
+      spec:'30수 코튼 100% · 2컬러 세트',
+      desc:'매일 손이 가는 기본 반팔 티. 목이 늘어나지 않는 탄탄한 30수 코튼으로, 화이트와 블랙 두 장을 한 세트로 준비했습니다.',
+      colors:[{n:'화이트',h:'#f5f3ee'},{n:'블랙',h:'#232326'},{n:'2컬러 세트',h:'#cfcfcf'}],
+      sizes:['S','M','L'], sold:[],
+      tags:['기본티','레이어드','가성비좋은'] },
+
+    { id:'hs06', name:'윈드쉴드 하프집 바람막이', brand:W, cat:'outer', img:'assets/p6-windbreaker.jpg',
+      price:59000, list:79000, rating:4.7, reviews:864, added:20261123, fame:86,
+      spec:'방풍 나일론 · 하프집 후드',
+      desc:'바람이 많은 날 가볍게 걸치는 하프집 윈드브레이커. 생활 방수 코팅으로 눈발에도 든든하고, 가방에 접어 넣기 좋습니다.',
+      colors:[{n:'네이비',h:'#243a5e'},{n:'블랙',h:'#22242a'},{n:'카키',h:'#7d8060'}],
+      sizes:['M','L','XL'], sold:['XL'],
+      tags:['바람막이','간절기','커플룩'] },
+
+    { id:'hs07', name:'시티 벨트 롱패딩', brand:W, cat:'outer', img:'assets/p7-long-padding.jpg',
+      price:89000, list:129000, rating:4.8, reviews:1533, added:20261117, fame:92,
+      spec:'허리 벨트 · 종아리 기장',
+      desc:'종아리까지 내려오는 롱패딩에 허리 벨트를 더했습니다. 실루엣이 잡혀 두툼한 패딩도 날씬하게. 출퇴근용으로 가장 많이 찾습니다.',
+      colors:[{n:'블랙',h:'#1a1a1d'},{n:'아이보리',h:'#e9e2d3'}],
+      sizes:['S','M','L'], sold:['S'],
+      tags:['롱패딩','겨울아우터','동대문셀렉트'] },
+
+    { id:'hs08', name:'코튼 와이드 카고 팬츠', brand:W, cat:'pants', img:'assets/p8-cargo-pants.jpg',
+      price:42000, list:59000, rating:4.6, reviews:742, added:20261121, fame:84,
+      spec:'기모 코튼 · 와이드 카고',
+      desc:'겨울용 기모 원단에 와이드 실루엣을 더한 카고 팬츠. 사이드 포켓으로 실용적이고, 스니커즈에 자연스럽게 떨어집니다.',
+      colors:[{n:'베이지',h:'#cdb995'},{n:'블랙',h:'#26262a'},{n:'카키',h:'#77795a'}],
+      sizes:['S','M','L','XL'], sold:[],
+      tags:['데일리코디','와이드팬츠','겨울코디'] }
+  ];
+
+  var byId = {};
+  PRODUCTS.forEach(function(p){ byId[p.id] = p; });
+
+  var RANKS = {
+    realtime: ['hs01','hs02','hs03','hs04'],
+    day:      ['hs03','hs01','hs05','hs07'],
+    week:     ['hs02','hs04','hs01','hs06'],
+    month:    ['hs07','hs01','hs02','hs03']
+  };
+
+  /* ---------------- helpers ---------------- */
+  function won(n){ return n.toLocaleString('ko-KR') + '원'; }
+  function pct(p){ return Math.round((1 - p.price / p.list) * 100); }
+  function $(s, r){ return (r || document).querySelector(s); }
+  function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function load(key, fb){
+    try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : fb; } catch(e){ return fb; }
+  }
+  function save(key, v){ try { localStorage.setItem(key, JSON.stringify(v)); } catch(e){} }
+
+  var state = {
+    tab: 'realtime',
+    view: 'all',
+    sort: 'popular',
+    cart: load('hs_v2_cart', []),
+    wish: load('hs_v2_wish', []),
+    coupon: load('hs_v2_coupon', false)
+  };
+
+  var FREE_SHIP = 50000, SHIP_FEE = 3000, COUPON_AMT = 2000;
+
+  /* ---------------- toast ---------------- */
+  var toastEl = $('#toast'), toastTimer;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('on'); }, 2400);
+  }
+
+  /* ---------------- badges ---------------- */
+  function cartQty(){
+    return state.cart.reduce(function(s, it){ return s + it.qty; }, 0);
+  }
+  function syncBadges(){
+    var c = cartQty(), w = state.wish.length;
+    var cb = $('#cartBadge'), wb = $('#wishBadge');
+    cb.textContent = c; cb.hidden = c === 0;
+    wb.textContent = w; wb.hidden = w === 0;
+    $('#drawerCount').textContent = c;
+  }
+
+  /* ---------------- card rendering ---------------- */
+  function heartSVG(){
+    return '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg>';
+  }
+
+  function card(p, rank, isNew){
+    var wished = state.wish.indexOf(p.id) > -1;
+    var html = '' +
+      '<article class="card" data-id="' + p.id + '">' +
+        '<div class="thumb">' +
+          (rank ? '<span class="rank' + (rank === 1 ? ' top' : '') + '">' + rank + '위</span>' : '') +
+          (isNew ? '<span class="newbadge">NEW</span>' : '') +
+          '<button class="heart' + (wished ? ' on' : '') + '" type="button" data-wish="' + p.id + '" aria-label="' + esc(p.name) + ' 찜하기" aria-pressed="' + wished + '">' + heartSVG() + '</button>' +
+          '<img src="' + p.img + '" alt="' + esc(p.name) + '" loading="lazy">' +
+          '<div class="hoverbar">' +
+            '<button type="button" data-opt="' + p.id + '">옵션 선택</button>' +
+            '<button type="button" class="ghost" data-quick="' + p.id + '" aria-label="장바구니에 담기" title="장바구니 담기">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="info">' +
+          '<p class="p-brand">' + p.brand + '</p>' +
+          '<h3 class="p-name">' + esc(p.name) + '</h3>' +
+          '<p class="p-spec">' + esc(p.spec) + '</p>' +
+          '<p class="p-rate"><span class="star">★</span> ' + p.rating.toFixed(1) + ' <b>(' + p.reviews.toLocaleString('ko-KR') + ')</b></p>' +
+          '<div class="p-price">' +
+            '<span class="pct">' + pct(p) + '%</span>' +
+            '<span class="now">' + won(p.price) + '</span>' +
+            '<span class="old">' + won(p.list) + '</span>' +
+            '<span class="maxdeal">최대할인가</span>' +
+          '</div>' +
+          '<div class="p-tags">' + p.tags.map(function(t){ return '<button type="button" data-tag="' + esc(t) + '">#' + esc(t) + '</button>'; }).join('') + '</div>' +
+        '</div>' +
+      '</article>';
+    return html;
+  }
+
+  /* ---------------- best ---------------- */
+  function renderBest(){
+    var ids = RANKS[state.tab] || RANKS.realtime;
+    var html = ids.map(function(id, i){ return card(byId[id], i + 1, false); }).join('');
+    $('#bestGrid').innerHTML = html;
+  }
+
+  /* ---------------- new ---------------- */
+  function renderNew(){
+    var list = PRODUCTS.filter(function(p){ return p.added >= 20261121; })
+      .sort(function(a, b){ return b.added - a.added; });
+    $('#newGrid').innerHTML = list.map(function(p){ return card(p, 0, true); }).join('');
+  }
+
+  /* ---------------- shop ---------------- */
+  function currentList(){
+    var list = PRODUCTS.slice();
+    if (state.view !== 'all'){
+      list = list.filter(function(p){ return p.cat === state.view; });
+    }
+    var s = state.sort;
+    list.sort(function(a, b){
+      if (s === 'latest') return b.added - a.added || b.fame - a.fame;
+      if (s === 'low') return a.price - b.price;
+      if (s === 'high') return b.price - a.price;
+      if (s === 'sale') return pct(b) - pct(a);
+      return b.fame - a.fame;
+    });
+    return list;
+  }
+
+  function renderShop(){
+    var list = currentList();
+    $('#shopGrid').innerHTML = list.length
+      ? list.map(function(p){ return card(p, 0, p.added >= 20261121); }).join('')
+      : '<p class="empty">해당 카테고리의 상품이 아직 없습니다. 다른 카테고리를 선택해 주세요.</p>';
+    $('#shopCount').textContent = list.length;
+    $$('#catChips button').forEach(function(b){ b.classList.toggle('on', b.dataset.chip === state.view); });
+    $$('#sortTabs button').forEach(function(b){ b.classList.toggle('on', b.dataset.sort === state.sort); });
+  }
+
+  /* ---------------- wish ---------------- */
+  function toggleWish(id, btn){
+    var i = state.wish.indexOf(id);
+    if (i > -1){ state.wish.splice(i, 1); btn.classList.remove('on'); btn.setAttribute('aria-pressed', 'false'); toast('찜 목록에서 삭제했어요.'); }
+    else { state.wish.push(id); btn.classList.add('on'); btn.setAttribute('aria-pressed', 'true'); toast('찜한 상품에 담았어요.'); }
+    save('hs_v2_wish', state.wish);
+    syncBadges();
+  }
+
+  /* ---------------- cart ---------------- */
+  function addToCart(id, color, size, qty){
+    var p = byId[id]; if (!p) return;
+    var found = state.cart.filter(function(it){ return it.id === id && it.color === color && it.size === size; })[0];
+    if (found) found.qty = Math.min(20, found.qty + qty);
+    else state.cart.push({ id:id, color:color, size:size, qty:qty });
+    save('hs_v2_cart', state.cart);
+    syncBadges(); renderCart();
+    toast(p.name + ' · ' + color + '/' + size + ' 장바구니에 담았어요.');
+  }
+
+  function cartTotals(){
+    var goods = state.cart.reduce(function(s, it){
+      var p = byId[it.id]; return s + (p ? p.price * it.qty : 0);
+    }, 0);
+    var ship = goods === 0 ? 0 : (goods >= FREE_SHIP ? 0 : SHIP_FEE);
+    var disc = (state.coupon && goods > 0) ? Math.min(COUPON_AMT, goods) : 0;
+    return { goods: goods, ship: ship, disc: disc, total: Math.max(0, goods + ship - disc) };
+  }
+
+  function renderCart(){
+    var body = $('#cartBody');
+    if (!state.cart.length){
+      body.innerHTML = '' +
+        '<div class="cempty">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
+          '<p>장바구니가 비어 있어요.<br>오늘 올라온 신상품을 둘러보세요.</p>' +
+          '<button type="button" id="goShop">신상품 보러가기</button>' +
+        '</div>';
+      $('#cartFoot').style.display = 'none';
+      var gs = $('#goShop');
+      if (gs) gs.addEventListener('click', function(){ closeDrawer(); document.getElementById('new').scrollIntoView({behavior:'smooth'}); });
+      syncTotals(); return;
+    }
+
+    body.innerHTML = state.cart.map(function(it, idx){
+      var p = byId[it.id]; if (!p) return '';
+      return '' +
+        '<div class="citem" data-idx="' + idx + '">' +
+          '<img src="' + p.img + '" alt="">' +
+          '<div class="cbody">' +
+            '<p class="cname">' + esc(p.name) + '</p>' +
+            '<p class="copt">' + esc(it.color) + ' / ' + esc(it.size) + '</p>' +
+            '<p class="cprice">' + won(p.price * it.qty) + ' <em>(' + won(p.price) + ')</em></p>' +
+            '<div class="qty">' +
+              '<button type="button" data-dec="' + idx + '" aria-label="수량 줄이기">−</button>' +
+              '<span>' + it.qty + '</span>' +
+              '<button type="button" data-inc="' + idx + '" aria-label="수량 늘리기">+</button>' +
+            '</div>' +
+            '<button type="button" class="cremove" data-del="' + idx + '">삭제</button>' +
+          '</div>' +
+        '</div>';
+    }).join('');
+    $('#cartFoot').style.display = '';
+    syncTotals();
+  }
+
+  function syncTotals(){
+    var t = cartTotals();
+    $('#sumGoods').textContent = won(t.goods);
+    $('#sumShip').textContent = t.ship === 0 ? (t.goods > 0 ? '무료' : '0원') : won(t.ship);
+    $('#sumCoupon').textContent = '-' + won(t.disc);
+    $('#rowCoupon').hidden = t.disc === 0;
+    $('#sumTotal').textContent = won(t.total);
+    $('#drawerCount').textContent = cartQty();
+
+    var left = Math.max(0, FREE_SHIP - t.goods);
+    if (t.goods === 0){
+      $('#shipMsg').innerHTML = '5만원 이상 구매 시 <b>무료배송</b>';
+      $('#shipFill').style.width = '0%';
+    } else if (left === 0){
+      $('#shipMsg').innerHTML = '<b>무료배송</b>이 적용되었습니다!';
+      $('#shipFill').style.width = '100%';
+    } else {
+      $('#shipMsg').innerHTML = '무료배송까지 <b>' + won(left) + '</b> 남았어요';
+      $('#shipFill').style.width = Math.min(100, (t.goods / FREE_SHIP) * 100) + '%';
+    }
+    var ob = $('#orderBtn');
+    ob.disabled = state.cart.length === 0;
+    ob.style.opacity = state.cart.length === 0 ? .45 : 1;
+    ob.style.cursor = state.cart.length === 0 ? 'default' : 'pointer';
+  }
+
+  /* ---------------- drawer open/close ---------------- */
+  function openDrawer(){
+    $('#drawer').classList.add('on');
+    $('#drawer').setAttribute('aria-hidden', 'false');
+    $('#scrim').classList.add('on');
+    document.body.classList.add('locked');
+    renderCart();
+  }
+  function closeDrawer(){
+    $('#drawer').classList.remove('on');
+    $('#drawer').setAttribute('aria-hidden', 'true');
+    $('#scrim').classList.remove('on');
+    document.body.classList.remove('locked');
+  }
+
+  /* ---------------- option modal ---------------- */
+  var modalState = { id:null, color:null, size:null, qty:1 };
+
+  function openModal(id, presetColor){
+    var p = byId[id]; if (!p) return;
+    modalState = { id:id, color:presetColor || p.colors[0].n, size:null, qty:1 };
+
+    $('#mImg').src = p.img;
+    $('#mImg').alt = p.name;
+    $('#mBrand').textContent = p.brand;
+    $('#mTitle').textContent = p.name;
+    $('#mRate').innerHTML = '<span class="star">★</span> <b>' + p.rating.toFixed(1) + '</b> <span>리뷰 ' + p.reviews.toLocaleString('ko-KR') + '개</span> <span style="color:#ddd">|</span> <span>' + esc(p.spec) + '</span>';
+    $('#mPct').textContent = pct(p) + '%';
+    $('#mNow').textContent = won(p.price);
+    $('#mOld').textContent = won(p.list);
+    $('#mDesc').textContent = p.desc;
+    $('#mWarn').textContent = '';
+
+    $('#mColors').innerHTML = p.colors.map(function(c){
+      return '<button type="button" class="sw' + (c.n === modalState.color ? ' on' : '') + '" data-color="' + esc(c.n) + '"><i style="background:' + c.h + '"></i>' + esc(c.n) + '</button>';
+    }).join('');
+    $('#mSizes').innerHTML = p.sizes.map(function(s){
+      var sold = p.sold.indexOf(s) > -1;
+      return '<button type="button" class="sz" data-size="' + s + '"' + (sold ? ' disabled aria-label="' + s + ' 품절"' : '') + '>' + s + (sold ? ' (품절)' : '') + '</button>';
+    }).join('');
+
+    updateModal();
+    $('#modal').classList.add('on');
+    $('#modal').setAttribute('aria-hidden', 'false');
+    document.body.classList.add('locked');
+  }
+
+  function updateModal(){
+    var p = byId[modalState.id]; if (!p) return;
+    $('#mColorTxt').textContent = modalState.color;
+    $('#mSizeTxt').textContent = modalState.size || '선택';
+    $('#mQtyTxt').textContent = modalState.qty;
+    $('#mTotal').textContent = won(p.price * modalState.qty);
+    $$('#mColors .sw').forEach(function(b){ b.classList.toggle('on', b.dataset.color === modalState.color); });
+    $$('#mSizes .sz').forEach(function(b){ b.classList.toggle('on', b.dataset.size === modalState.size); });
+  }
+
+  function closeModal(){
+    $('#modal').classList.remove('on');
+    $('#modal').setAttribute('aria-hidden', 'true');
+    if (!$('#drawer').classList.contains('on') && !$('#searchPanel').classList.contains('on')){
+      document.body.classList.remove('locked');
+    }
+  }
+
+  /* ---------------- search ---------------- */
+  function openSearch(term){
+    $('#searchPanel').classList.add('on');
+    $('#searchPanel').setAttribute('aria-hidden', 'false');
+    document.body.classList.add('locked');
+    var inp = $('#spInput');
+    inp.value = term || '';
+    renderSearch(term || '');
+    setTimeout(function(){ inp.focus(); }, 120);
+  }
+  function closeSearch(){
+    $('#searchPanel').classList.remove('on');
+    $('#searchPanel').setAttribute('aria-hidden', 'true');
+    if (!$('#drawer').classList.contains('on') && !$('#modal').classList.contains('on')){
+      document.body.classList.remove('locked');
+    }
+  }
+  function renderSearch(q){
+    q = (q || '').trim().toLowerCase();
+    var list = PRODUCTS.filter(function(p){
+      if (!q) return p.fame > 90;
+      var hay = (p.name + ' ' + p.spec + ' ' + p.tags.join(' ') + ' ' + p.cat + ' ' + p.brand).toLowerCase();
+      return hay.indexOf(q) > -1;
+    }).slice(0, 8);
+    $('#spResultLabel').textContent = q ? '검색 결과 ' + list.length + '개' : '추천 상품';
+    $('#spResults').innerHTML = list.length ? list.map(function(p){
+      return '<button type="button" class="sp-card" data-opt="' + p.id + '" style="text-align:left">' +
+        '<img src="' + p.img + '" alt="' + esc(p.name) + '" loading="lazy">' +
+        '<b>' + esc(p.name) + '</b><span>' + won(p.price) + '</span></button>';
+    }).join('') : '<p class="sp-none">검색 결과가 없습니다. 다른 키워드로 검색해 보세요.</p>';
+  }
+
+  /* ---------------- coupon ---------------- */
+  function renderCoupon(){
+    var b = $('#couponBtn');
+    if (state.coupon){
+      b.classList.add('done');
+      b.innerHTML = '쿠폰함 확인 <span class="cicon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg></span>';
+      b.setAttribute('aria-label', '쿠폰이 발급되었습니다. 장바구니에서 확인하세요.');
+    } else {
+      b.classList.remove('done');
+    }
+  }
+
+  /* ---------------- events ---------------- */
+  document.addEventListener('click', function(e){
+    var t = e.target;
+
+    var wishBtn = t.closest('[data-wish]');
+    if (wishBtn){ e.preventDefault(); toggleWish(wishBtn.dataset.wish, wishBtn); return; }
+
+    var optBtn = t.closest('[data-opt]');
+    if (optBtn){ openModal(optBtn.dataset.opt); return; }
+
+    var quick = t.closest('[data-quick]');
+    if (quick){
+      var p = byId[quick.dataset.quick];
+      var size = p.sizes.filter(function(s){ return p.sold.indexOf(s) === -1; })[0];
+      if (!size){ toast('현재 모든 사이즈가 품절이에요.'); return; }
+      addToCart(p.id, p.colors[0].n, size, 1);
+      return;
+    }
+
+    var tag = t.closest('[data-tag]');
+    if (tag){ openSearch(tag.dataset.tag); return; }
+
+    var opt = t.closest('[data-scroll]');
+    if (opt){
+      var el = document.querySelector(opt.dataset.scroll);
+      if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+      return;
+    }
+
+    var chip = t.closest('[data-chip]');
+    if (chip){ state.view = chip.dataset.chip; renderShop(); return; }
+
+    var sort = t.closest('[data-sort]');
+    if (sort){ state.sort = sort.dataset.sort; renderShop(); return; }
+
+    var navcat = t.closest('a[data-cat], .dd [data-cat]');
+    if (navcat){
+      state.view = navcat.dataset.cat;
+      renderShop();
+      var shopEl = document.getElementById('shop');
+      if (shopEl) setTimeout(function(){ shopEl.scrollIntoView({ behavior:'smooth', block:'start' }); }, 30);
+      return;
+    }
+
+    var tabBtn = t.closest('#bestTabs button');
+    if (tabBtn){
+      state.tab = tabBtn.dataset.tab;
+      $$('#bestTabs button').forEach(function(b){
+        var on = b === tabBtn;
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      renderBest();
+      return;
+    }
+
+    var inc = t.closest('[data-inc]');
+    if (inc){ var i1 = +inc.dataset.inc; state.cart[i1].qty = Math.min(20, state.cart[i1].qty + 1); save('hs_v2_cart', state.cart); renderCart(); syncBadges(); return; }
+
+    var dec = t.closest('[data-dec]');
+    if (dec){
+      var i2 = +dec.dataset.dec;
+      state.cart[i2].qty -= 1;
+      if (state.cart[i2].qty < 1) state.cart.splice(i2, 1);
+      save('hs_v2_cart', state.cart); renderCart(); syncBadges(); return;
+    }
+
+    var del = t.closest('[data-del]');
+    if (del){ state.cart.splice(+del.dataset.del, 1); save('hs_v2_cart', state.cart); renderCart(); syncBadges(); toast('장바구니에서 삭제했어요.'); return; }
+
+    var colorBtn = t.closest('#mColors [data-color]');
+    if (colorBtn){ modalState.color = colorBtn.dataset.color; updateModal(); return; }
+
+    var sizeBtn = t.closest('#mSizes [data-size]');
+    if (sizeBtn && !sizeBtn.disabled){ modalState.size = sizeBtn.dataset.size; $('#mWarn').textContent = ''; updateModal(); return; }
+
+    if (t.closest('[data-close-modal]')){ closeModal(); return; }
+    if (t.closest('#scrim')){ closeDrawer(); return; }
+  });
+
+  $('#cartBtn').addEventListener('click', openDrawer);
+  var c3 = $('#cartOpen3'); if (c3) c3.addEventListener('click', openDrawer);
+  $('#drawerClose').addEventListener('click', closeDrawer);
+  $('#wishBtn').addEventListener('click', function(){
+    toast(state.wish.length ? '찜한 상품 ' + state.wish.length + '개를 보고 있어요.' : '아직 찜한 상품이 없어요.');
+  });
+  $('#notifyBtn').addEventListener('click', function(){
+    toast('신상품 알림을 신청했어요. 새 상품이 올라오면 알려드릴게요.');
+  });
+
+  $('#couponBtn').addEventListener('click', function(){
+    if (state.coupon){
+      openDrawer();
+      toast('쿠폰이 적용되어 있어요. 장바구니에서 확인해 보세요.');
+      return;
+    }
+    state.coupon = true; save('hs_v2_coupon', true); renderCoupon();
+    toast('2,000원 중복할인 쿠폰을 받았어요! 장바구니에 자동 적용됩니다.');
+  });
+
+  $('#orderBtn').addEventListener('click', function(){
+    if (!state.cart.length) return;
+    toast('디자인 시안이라 실제 결제는 진행되지 않아요.');
+  });
+  $('#clearBtn').addEventListener('click', function(){
+    if (!state.cart.length) return;
+    state.cart = []; save('hs_v2_cart', state.cart); renderCart(); syncBadges(); toast('장바구니를 비웠어요.');
+  });
+
+  $('#mAdd').addEventListener('click', function(){
+    if (!modalState.size){ $('#mWarn').textContent = '사이즈를 선택해 주세요.'; return; }
+    addToCart(modalState.id, modalState.color, modalState.size, modalState.qty);
+    closeModal(); openDrawer();
+  });
+  $('#mBuy').addEventListener('click', function(){
+    if (!modalState.size){ $('#mWarn').textContent = '사이즈를 선택해 주세요.'; return; }
+    toast('디자인 시안이라 실제 결제는 진행되지 않아요. (바로 구매)');
+  });
+
+  // top search
+  var ts = $('#topSearch');
+  ts.addEventListener('submit', function(e){ e.preventDefault(); openSearch($('#topSearchInput').value); });
+  $('#topSearchInput').addEventListener('click', function(){ openSearch(''); });
+  $('#searchOpen2').addEventListener('click', function(){ openSearch(''); });
+  $('#floatSearch').addEventListener('click', function(){ openSearch(''); });
+  $('#spClose').addEventListener('click', closeSearch);
+  $('#spInput').addEventListener('input', function(e){ renderSearch(e.target.value); });
+  $$('#spKeys button').forEach(function(b){
+    b.addEventListener('click', function(){ $('#spInput').value = b.textContent; renderSearch(b.textContent); $('#spInput').focus(); });
+  });
+
+  $('#floatTop').addEventListener('click', function(){ window.scrollTo({ top:0, behavior:'smooth' }); });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    if ($('#searchPanel').classList.contains('on')) closeSearch();
+    else if ($('#modal').classList.contains('on')) closeModal();
+    else if ($('#drawer').classList.contains('on')) closeDrawer();
+  });
+
+  // nav active on scroll
+  var navLinks = $$('.nav a[data-nav]');
+  var sections = navLinks.map(function(a){ return document.getElementById(a.dataset.nav); }).filter(Boolean);
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        navLinks.forEach(function(a){ a.classList.toggle('active', a.dataset.nav === en.target.id); });
+      });
+    }, { rootMargin:'-40% 0px -55% 0px', threshold:0 });
+    sections.forEach(function(s){ io.observe(s); });
+  }
+
+  // live visit counter
+  var tv = $('#todayCount');
+  setInterval(function(){
+    var n = parseInt(tv.textContent.replace(/,/g, ''), 10) || 106;
+    tv.textContent = (n + (Math.random() < .6 ? 1 : 0)).toLocaleString('ko-KR');
+  }, 9000);
+
+  /* ---------------- boot ---------------- */
+  renderBest();
+  renderNew();
+  renderShop();
+  renderCoupon();
+  renderCart();
+  syncBadges();
+})();
+</script>
+</body>
+</html>
