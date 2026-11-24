@@ -317,9 +317,15 @@
   .sz:hover{border-color:#999}
   .sz.on{border-color:#111;background:#111;color:#fff;font-weight:600}
   .sz:disabled{color:#c6c6c6;border-color:#f0f0f0;cursor:default;background:#fafafa;text-decoration:line-through;text-decoration-thickness:1px}
+  .sz:disabled::after{content:"품절";position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);font-size:8px;letter-spacing:.02em;color:#bbb;background:#fff;padding:0 3px;text-decoration:none}
   .opt-total{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:16px;padding-top:14px}
   .opt-total span{font-size:11.5px;color:#777}
   .opt-total b{font-size:17px;font-weight:800;letter-spacing:-.03em}
+  .oqty-label{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;color:#777}
+  .oqty{display:inline-flex;align-items:center;border:1px solid var(--line-2);height:30px}
+  .oqty button{width:28px;height:100%;display:grid;place-items:center;color:#666;font-size:14px;line-height:1}
+  .oqty button:hover{background:#f4f4f4;color:#111}
+  .oqty b{min-width:30px;text-align:center;font-size:11.5px;font-weight:600;color:#111}
   .opt-actions{display:flex;gap:6px;margin-top:12px}
   .opt-actions button{flex:1;height:46px;font-size:12.5px;font-weight:700;letter-spacing:.01em;border-radius:2px}
   .opt-actions .add{background:#fff;border:1px solid #111;color:#111}
@@ -777,7 +783,13 @@
       </div>
 
       <div class="opt-total">
-        <span>수량 <b id="mQtyTxt">1</b>개 · 총 상품금액</span>
+        <span class="oqty-label">수량
+          <span class="oqty">
+            <button type="button" data-mdec aria-label="수량 줄이기">−</button>
+            <b id="mQtyTxt">1</b>
+            <button type="button" data-minc aria-label="수량 늘리기">+</button>
+          </span>
+        </span>
         <b id="mTotal"></b>
       </div>
       <div class="opt-actions">
@@ -1150,7 +1162,7 @@
     }).join('');
     $('#mSizes').innerHTML = p.sizes.map(function(s){
       var sold = p.sold.indexOf(s) > -1;
-      return '<button type="button" class="sz" data-size="' + s + '"' + (sold ? ' disabled aria-label="' + s + ' 품절"' : '') + '>' + s + (sold ? ' (품절)' : '') + '</button>';
+      return '<button type="button" class="sz" data-size="' + s + '"' + (sold ? ' disabled aria-label="' + s + ' 품절"' : '') + '>' + s + '</button>';
     }).join('');
 
     updateModal();
@@ -1296,6 +1308,9 @@
 
     var sizeBtn = t.closest('#mSizes [data-size]');
     if (sizeBtn && !sizeBtn.disabled){ modalState.size = sizeBtn.dataset.size; $('#mWarn').textContent = ''; updateModal(); return; }
+
+    if (t.closest('[data-minc]')){ modalState.qty = Math.min(20, modalState.qty + 1); updateModal(); return; }
+    if (t.closest('[data-mdec]')){ modalState.qty = Math.max(1, modalState.qty - 1); updateModal(); return; }
 
     if (t.closest('[data-close-modal]')){ closeModal(); return; }
     if (t.closest('#scrim')){ closeDrawer(); return; }
